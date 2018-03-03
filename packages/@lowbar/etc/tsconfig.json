@@ -1,0 +1,25 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "outDir": "lib/",
+
+        "module": "commonjs",
+        "declaration": true,
+        "removeComments": true,
+
+        "strict": true,
+        "noFallthroughCasesInSwitch": true,
+        "forceConsistentCasingInFileNames": true,
+
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+
+        "listEmittedFiles": true,
+        "listFiles": true,
+        "diagnostics": true
+    },
+
+    "include": [
+        "src/"
+    ]
+}
