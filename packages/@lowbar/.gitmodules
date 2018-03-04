@@ -1,0 +1,6 @@
+[submodule "gitignore"]
+	path = ignore
+	url = https://github.com/github/gitignore.git
+[submodule "law"]
+	path = law
+	url = https://github.com/probitlabs/law.git
