@@ -8,3 +8,6 @@ export function proto<
 
     return p
 }
+
+export const INT :unique symbol = Symbol("[integer]")
+export type Int = number & typeof INT
