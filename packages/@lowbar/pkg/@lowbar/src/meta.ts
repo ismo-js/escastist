@@ -19,6 +19,7 @@ export function isInt(a :any) :a is Int {
 
 // ---
 
+export type Prop = string | symbol
 export function isStr(a :any) :a is string {
     return "string" === typeof a && !!a.length
 }
