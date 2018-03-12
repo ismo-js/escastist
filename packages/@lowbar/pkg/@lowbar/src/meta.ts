@@ -23,3 +23,8 @@ export type Prop = string | symbol
 export function isStr(a :any) :a is string {
     return "string" === typeof a && !!a.length
 }
+
+// ---
+export function range() {
+    //TODO
+}
