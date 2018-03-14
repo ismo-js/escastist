@@ -55,7 +55,9 @@ export function *range<
     let raw: number = rawOri, step :Int; 
     for (
         ;
-        ;raw+=step as number
+        ;raw += "number" === typeof step
+            ? step as number
+            : 1
     ) step = yield clothMap[ty](raw as Int)
 }
 export function *till<T>(
