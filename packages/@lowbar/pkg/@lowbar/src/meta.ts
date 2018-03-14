@@ -72,16 +72,19 @@ export function *till<T>(
 // ---
 
 const signs = [
-    "=-=-= ",
+    "\n=-=-= ",
     "`*´   ",
     "`$´   ",
     "`!´   ",
     "`!!!´ ",
 ]
-export function log(lvl :0o0 | 0o1 | 0o3 | 0o5 | 0o7) {
+export function log(lvl :0 | 1 | 3 | 5 | 7) {
     const sign = signs[Math.ceil(lvl / 2)]
 
-    return (tmp :TemplateStringsArray, ...vals :any[])=> {
+    return (
+        tmp :TemplateStringsArray,
+        ...vals :any[]
+    )=> {
         const valStrs = vals.map((e)=> {switch (typeof e) {
             case "boolean":
                 const bool = e as boolean
@@ -103,10 +106,13 @@ export function log(lvl :0o0 | 0o1 | 0o3 | 0o5 | 0o7) {
             ? [e, valStrs[i]]
             : [e]
         ) as ([string] | [string, string])[]
-        const output = "\n"
-            + sign
-            + pairs.map((pair)=> pair.join("")).join("")
+        const output = sign
+              + pairs.map((pair)=> pair.join("")).join("")
 
         console.error(output)
     }
 }
+
+// ---
+
+export const fromPoi = String.fromCodePoint
