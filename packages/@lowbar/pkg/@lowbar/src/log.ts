@@ -29,10 +29,9 @@ export function log(lvl :0 | 1 | 3 | 5 | 7) {
                 } …]<<${str.replace("\n", ">> NL <<")}>>`
             default:
                 const o = e as Object
-                const proto = Object.getPrototypeOf(o)
-                return `[${
-                    proto[Symbol.toStringTag]
-                }]<<${e.toString()}>>`
+                return `${
+                    Object.prototype.toString.call(o)
+                }<<${o.toString()}>>`
         }})
         const pairs = tmp.map((e, i)=> i < vals.length
             ? [e, valStrs[i]]
