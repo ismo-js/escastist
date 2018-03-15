@@ -28,6 +28,8 @@ export function log(lvl :0 | 1 | 3 | 5 | 7) {
                     ).join(":")
                 } …]<<${str.replace("\n", ">> NL <<")}>>`
             default:
+                if (null === e) return "[null]"
+
                 const o = e as Object
                 return `${
                     Object.prototype.toString.call(o)
