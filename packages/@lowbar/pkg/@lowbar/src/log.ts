@@ -28,8 +28,10 @@ export function log(lvl :0 | 1 | 3 | 5 | 7) {
                     ).join(":")
                 } …]<<${str.replace("\n", ">> NL <<")}>>`
             default:
+                const o = e as Object
+                const proto = Object.getPrototypeOf(o)
                 return `[${
-                    e[Symbol.toStringTag]
+                    proto[Symbol.toStringTag]
                 }]<<${e.toString()}>>`
         }})
         const pairs = tmp.map((e, i)=> i < vals.length
