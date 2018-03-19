@@ -27,6 +27,8 @@ export function log(lvl :0 | 1 | 3 | 5 | 7) {
                         char.codePointAt(0)!.toString(16)
                     ).join(":")
                 } …]<<${str.replace("\n", ">> NL <<")}>>`
+            case "undefined":
+                return `[undefined]`
             default:
                 if (null === e) return "[null]"
 
