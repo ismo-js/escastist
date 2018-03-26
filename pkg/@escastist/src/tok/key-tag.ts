@@ -1,4 +1,4 @@
-import {a, o, u} from "../sym"
+import {a, o, u} from "../key-syms"
 
 export const map = {
     "break": a.flow.BREAK,

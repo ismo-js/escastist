@@ -14,36 +14,47 @@ export namespace a {
         DELETE,
         DO,
         ELSE,
-    } = sym("a", "z")
-    //…TODO
+        LET,
+        TRY,
+        VAR,
+    } = sym("<a>", "key tag")
 
     // ---
 
-    export const block = {
-
-    }
     export const decl = {
-
+        CONST, DELETE, LET, VAR,
     }
     export const except = {
-
+        CATCH, TRY,
     }
     export const flow = {
-
+        BREAK, CASE, CONTINUE, DEFAULT, DO, ELSE,
     }
     export const meta = {
-
+        DEBUGGER,
     }
 }
 
 export namespace o {
-    export const mod = {
+    const {
+        EXPORT,
+    } = sym("<o>", "key tag")
 
+    // ---
+
+    export const mod = {
+        EXPORT,
     }
 }
 
 export namespace u {
-    export const cls = {
+    const {
+        CLASS, EXTENDS,        
+    } = sym("<u>", "key tag")
 
+    // ---
+
+    export const cls = {
+        CLASS, EXTENDS,
     }
 }
