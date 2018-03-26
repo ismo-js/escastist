@@ -1,7 +1,7 @@
-![neon^](https://placehold.it/120/c2ff23/ff23c2?text=neon^)
-![– escastist –](https://placehold.it/120/ff23c2/c2ff23?text=–%20escastist%20–)
+![neon^](https://placehold.it/360/c2ff23/ff23c2?text=neon^)
+![– escastist –](https://placehold.it/360/ff23c2/c2ff23?text=–%20escastist%20–)
 
-# escasᴛısᴛ
+# <small>(Project:)</small> escasᴛısᴛ
 ## [npm]`@neon/escastist`
 ### —*Overview*—
 ---
@@ -17,9 +17,10 @@
 
 :rainbow:
 
+
 ## :hash: Project
 
-+   :busts_in_silhouette:   
++   :busts_in_silhouette:
     *Author(s)*
     ∷ :office: [`@`ısmo](https://github.com/ismo-js)
     -   [J Schnell](https://git.io/probit)
@@ -35,3 +36,12 @@
 +   :speech_balloon:
     *Language*
     ∷ mainly **TypeScript**
+
+
+## :hash: Status
+Initialization phase.
+
+—*Not runnable*—
+
+
+## :hash: Readings
