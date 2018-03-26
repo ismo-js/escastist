@@ -1,17 +1,15 @@
 {
     "name": "@beyond-life/lowbar",
     "description": "Helper library for life and beyond…",
-    "version": "0.1.0",
+    "version": "0.1.2",
     "author": {
         "name": "J Schnell",
         "email": "labs@probit.link",
         "url": "https://git.io/probit"
     },
     "license": "GPL-3.0",
-
     "main": "lib/meta.js",
     "types": "lib/meta.d.ts",
-
     "devDependencies": {
         "@types/node": "^9.4.6"
     }

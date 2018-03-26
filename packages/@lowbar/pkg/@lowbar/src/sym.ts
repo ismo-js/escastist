@@ -6,7 +6,7 @@ class Tgt {
 
 export function sym(
     prefix :string,
-    suffix :string,
+    suffix :string = "",
 ) {
     return new Proxy(
         new Tgt(),
