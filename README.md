@@ -1,1 +1,1 @@
-doc/index.md
+doc/00--index.md
