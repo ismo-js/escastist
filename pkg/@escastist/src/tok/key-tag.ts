@@ -1,12 +1,21 @@
+import {a, o, u} from "../sym"
+
 export const map = {
-    "break": a.BREAK,
+    "break": a.flow.BREAK,
 
-    "case": a.CASE,
-    "catch": a.CATCH,
-    "class": u.CLASS,
-    "continue": a.CONTINUE,
-    "const": a.CONST,
+    "case": a.flow.CASE,
+    "catch": a.except.CATCH,
+    "class": u.cls.CLASS,
+    "continue": a.flow.CONTINUE,
+    "const": a.decl.CONST,
 
-    "debugger": a.DEBUGGER,
-    "default": a.DEFAULT,
+    "debugger": a.meta.DEBUGGER,
+    "default": a.flow.DEFAULT,
+    "delete": a.decl.DELETE,
+    "do": a.flow.DO,
+
+    "else": a.flow.ELSE,
+    "export": o.mod.EXPORT,
+    "extends": u.cls.EXTENDS,
+
 }
