@@ -1,8 +1,10 @@
-![neon^](https://placehold.it/360/c2ff23/ff23c2?text=neon^)
+![neon^](https://placehold.it/180/c2ff23/ff23c2?text=neon^)
 
-# neon *Language Tool Chain*
-## `@ismo/neon`
->   *(→)* bringing typed functional programming to the *Web+ES*-Platform
+# neon 
+# *The Language Tool Chain*
+## [ * ]`@ismo/neon`
+>   *(→)* bringing typed functional programming
+>   to the *Web+ES*-Platform
 ---
 
 ## :hash: Project
