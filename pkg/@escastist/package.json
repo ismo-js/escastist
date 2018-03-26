@@ -9,7 +9,7 @@
 
     "version": "0.1.0",
     "dependencies": {
-        "@beyond-life/lowbar": "~0.1.1",
+        "@beyond-life/lowbar": "~0.1.2",
         "reflect-metadata": "^0.1.10",
         "xstream": "^11.2.0"
     }
