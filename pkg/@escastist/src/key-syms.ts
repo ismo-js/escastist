@@ -3,58 +3,60 @@ import {
 } from "@beyond-life/lowbar"
 
 export namespace a {
-    const {
-        BREAK,
-        CASE,
-        CATCH,
-        CONTINUE,
-        CONST,
-        DEBUGGER,
-        DEFAULT,
-        DELETE,
-        DO,
-        ELSE,
-        LET,
-        TRY,
-        VAR,
-    } = sym("<a>", "key tag")
+    const aSyms = sym("<a> statem", "key tag")
 
-    // ---
-
-    export const decl = {
-        CONST, DELETE, LET, VAR,
+    export namespace decl {
+        export const CONST :unique symbol =
+            Symbol(aSyms.CONST.toString())
+        export const DELETE :unique symbol =
+            Symbol(aSyms.DELETE.toString())
+        export const LET :unique symbol =
+            Symbol(aSyms.LET.toString())
+        export const VAR :unique symbol =
+            Symbol(aSyms.VAR.toString())
     }
-    export const except = {
-        CATCH, TRY,
+    export namespace except {
+        export const CATCH :unique symbol =
+            Symbol(aSyms.CATCH.toString())
+        export const TRY :unique symbol =
+            Symbol(aSyms.TRY.toString())
     }
-    export const flow = {
-        BREAK, CASE, CONTINUE, DEFAULT, DO, ELSE,
+    export namespace flow {
+        export const BREAK :unique symbol =
+            Symbol(aSyms.BREAK.toString())
+        export const CASE :unique symbol =
+            Symbol(aSyms.CASE.toString())
+        export const CONTINUE :unique symbol =
+            Symbol(aSyms.CONTINUE.toString())
+        export const DEFAULT :unique symbol =
+            Symbol(aSyms.DEFAULT.toString())
+        export const DO :unique symbol =
+            Symbol(aSyms.DO.toString())
+        export const ELSE :unique symbol =
+            Symbol(aSyms.ELSE.toString())
     }
-    export const meta = {
-        DEBUGGER,
+    export namespace meta {
+        export const DEBUGGER :unique symbol =
+            Symbol(aSyms.DEBUGGER.toString())
     }
 }
 
 export namespace o {
-    const {
-        EXPORT,
-    } = sym("<o>", "key tag")
+    const oSyms = sym("<o> typing", "key tag")
 
-    // ---
-
-    export const mod = {
-        EXPORT,
+    export namespace mod {
+        export const EXPORT :unique symbol =
+            Symbol(oSyms.EXPORT.toString())
     }
 }
 
 export namespace u {
-    const {
-        CLASS, EXTENDS,        
-    } = sym("<u>", "key tag")
+    const uSyms = sym("<u> struct", "key tag")
 
-    // ---
-
-    export const cls = {
-        CLASS, EXTENDS,
+    export namespace cls {
+        export const CLASS :unique symbol =
+            Symbol(uSyms.CLASS.toString())
+        export const EXTENDS :unique symbol =
+            Symbol(uSyms.EXTENDS.toString())
     }
 }
