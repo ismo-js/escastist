@@ -1,3 +1,7 @@
+import {
+    sym,
+} from "@beyond-life/lowbar"
+
 export namespace a {
     const {
         BREAK,
@@ -10,7 +14,8 @@ export namespace a {
         DELETE,
         DO,
         ELSE,
-    } = sym("")
+    } = sym("a", "z")
+    //…TODO
 
     // ---
 
@@ -34,11 +39,11 @@ export namespace a {
 export namespace o {
     export const mod = {
 
-    },
+    }
 }
 
 export namespace u {
     export const cls = {
 
-    },
+    }
 }

@@ -3,6 +3,6 @@
     "version": "0.1.0",
 
     "dependencies": {
-        "@beyond-life/lowbar": "^0.1.0"
+        "@beyond-life/lowbar": "^0.1.1"
     }
 }
