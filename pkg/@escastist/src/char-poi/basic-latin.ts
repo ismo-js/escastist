@@ -1,18 +1,14 @@
 import {
     Int, isInt, INT,
-    sym,
-    refKey,
 } from "@beyond-life/lowbar"
 
 import {
     UNIT_TERM, LINE_TERM, WHITE_SPACE,
-    PoiMetadata,
+    PoiMetadata, RefInt
 } from "./kinds"
 
 // ~~~
 
-
-const RefInt = refKey(INT)
 
 export default class BasicLatin {
     @RefInt [0x09] :PoiMetadata = {
