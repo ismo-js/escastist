@@ -18,6 +18,8 @@ export namespace a {
     export namespace except {
         export const CATCH :unique symbol =
             Symbol(aSyms.CATCH.toString())
+        export const FINALLY :unique symbol =
+            Symbol(aSyms.FINALLY.toString())
         export const TRY :unique symbol =
             Symbol(aSyms.TRY.toString())
     }
@@ -38,6 +40,24 @@ export namespace a {
     export namespace meta {
         export const DEBUGGER :unique symbol =
             Symbol(aSyms.DEBUGGER.toString())
+    }
+}
+
+export namespace e {
+    const eSyms = sym("<e> typing", "key tag")
+
+    export namespace flow {
+        export const AWAIT :unique symbol =
+            Symbol(eSyms.AWAIT.toString())
+    }
+
+    export namespace oper {
+        export const IN :unique symbol =
+            Symbol(eSyms.IN.toString())
+        export const INSTANCEOF :unique symbol =
+            Symbol(eSyms.INSTANCEOF.toString())
+        export const NEW :unique symbol =
+            Symbol(eSyms.NEW.toString())
     }
 }
 
