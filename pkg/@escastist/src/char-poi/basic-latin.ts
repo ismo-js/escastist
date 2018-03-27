@@ -1,4 +1,8 @@
-import {sym} from "@beyond-life/lowbar"
+import {
+    Int, isInt,
+    sym,
+    refKey,
+} from "@beyond-life/lowbar"
 
 // ~~~
 
@@ -17,19 +21,26 @@ export interface PoiMetadata {
     name :string
 }
 
-export interface PoiMetaset {
-    [key :number] :PoiMetadata
-}
-
-export default class BasicLatin
-      implements PoiMetaset {
-    ;[0x09] :PoiMetadata = {
+export default class BasicLatin {
+    @refKey() [0x09] :PoiMetadata = {
         kind: WHITE_SPACE,
-        name: "Tab",
+        name: "FTab",
     }
-    ;[0x0b] :PoiMetadata = {
+    @refKey() [0x0b] :PoiMetadata = {
         kind: WHITE_SPACE,
         name: "VTab",
+    }
+    @refKey() [0x0c] :PoiMetadata = {
+        kind: WHITE_SPACE,
+        name: "FFeed",
+    }
+    @refKey() [0x20] :PoiMetadata = {
+        kind: WHITE_SPACE,
+        name: "Space",
+    }
+    @refKey() [0xa0] :PoiMetadata = {
+        kind: WHITE_SPACE,
+        name: "NoBrSpace",
     }
 
 }

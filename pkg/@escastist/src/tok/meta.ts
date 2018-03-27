@@ -12,12 +12,6 @@ import {
 
 // ~~~
 
-export function scan(
-    poi$ :$<Int>,
-) {
-
-}
-
 export default function tokenize(
     poi$ :$<Int>,
 ) {
