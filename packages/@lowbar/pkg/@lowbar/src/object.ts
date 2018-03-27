@@ -1,4 +1,5 @@
-import {Int} from "./int"
+import {Int, INT, isInt} from "./int"
+import {STR} from "./str"
 
 // ~~~
 
@@ -22,4 +23,32 @@ export function getArrIndex<A>(
     return arr.includes(needle)
         ? arr.indexOf(needle) as Int
         : null
+}
+
+// ---
+
+export function refKey(
+    type :typeof INT | null = null,
+    key :Prop = INT === type
+        ? "index"
+        : "key",
+) {
+    return (
+        tgt :Object,
+        prop :Prop,
+        desc :PropertyDescriptor,
+    ) => {
+        const {value} = desc
+        const valueNext = {
+            ...value,
+            [key]: prop,
+        }
+        const proto = Reflect.getPrototypeOf(value)
+
+        Reflect.setPrototypeOf(valueNext, proto)
+        return {
+            ...desc,
+            value: valueNext,
+        }
+    }
 }
