@@ -1,46 +1,56 @@
 import {
-    Int, isInt,
+    Int, isInt, INT,
     sym,
     refKey,
 } from "@beyond-life/lowbar"
 
+import {
+    UNIT_TERM, LINE_TERM, WHITE_SPACE,
+    PoiMetadata,
+} from "./kinds"
+
 // ~~~
 
-const poiKinds = sym("Code point kind")
-export const WHITE_SPACE :unique symbol =
-    Symbol(poiKinds.WHITE_SPACE.toString())
-export const LINE_TERM :unique symbol =
-    Symbol(poiKinds.LINE_TERM.toString())
 
-export type PoiKind = never
-    | typeof WHITE_SPACE
-    | typeof LINE_TERM
-
-export interface PoiMetadata {
-    kind :PoiKind
-    name :string
-}
+const RefInt = refKey(INT)
 
 export default class BasicLatin {
-    @refKey() [0x09] :PoiMetadata = {
+    @RefInt [0x09] :PoiMetadata = {
         kind: WHITE_SPACE,
-        name: "FTab",
+        name: "HTab",
     }
-    @refKey() [0x0b] :PoiMetadata = {
+    @RefInt [0x0a] :PoiMetadata = {
+        kind: LINE_TERM,
+        name: "LFeed",
+    }
+    @RefInt [0x0b] :PoiMetadata = {
         kind: WHITE_SPACE,
         name: "VTab",
     }
-    @refKey() [0x0c] :PoiMetadata = {
+    @RefInt [0x0c] :PoiMetadata = {
         kind: WHITE_SPACE,
         name: "FFeed",
     }
-    @refKey() [0x20] :PoiMetadata = {
+    @RefInt [0x0d] :PoiMetadata = {
+        kind: LINE_TERM,
+        name: "Return",
+    }
+
+    // ---
+
+    @RefInt [0x1f] :PoiMetadata = {
+        kind: UNIT_TERM,
+        name: "UnitSep",
+    }
+
+    // ---
+
+    @RefInt [0x20] :PoiMetadata = {
         kind: WHITE_SPACE,
         name: "Space",
     }
-    @refKey() [0xa0] :PoiMetadata = {
+    @RefInt [0xa0] :PoiMetadata = {
         kind: WHITE_SPACE,
         name: "NoBrSpace",
     }
-
 }
