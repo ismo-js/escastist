@@ -22,6 +22,7 @@
 
 +
     :office: 
+    *Organization*
     -   **ısmo.**
         *   :octocat:
             [`@`ismo-js](https://github.com/ismo-js)
