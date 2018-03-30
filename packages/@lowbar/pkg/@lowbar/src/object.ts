@@ -1,5 +1,4 @@
 import {Int, INT, isInt} from "./int"
-import {STR} from "./str"
 
 // ~~~
 
