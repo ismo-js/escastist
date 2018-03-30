@@ -1,10 +1,10 @@
 ![– escastist –](https://placehold.it/360/ff23c2/c2ff23?text=–%20escastist%20–)
 
-# <small>(Project:)</small> `@`∷escasᴛısᴛ
+# <small>(Project:)</small> ∷escasᴛısᴛ
 # *Ast Interpretation & Substitution Tooling*
-## [npm]`@escastist`
+## [npm][`@escastist`](https://www.npmjs.com/org/escastist)
 ### —*Overview*—
----
+---`
 
 ## :hash: Acronym
 
@@ -41,7 +41,10 @@
 ## :hash: Status
 Initialization phase.
 
+Also see [the `npm` project](https://www.npmjs.com/org/escastist).
+
 —*Not runnable*—
 
 
-## :hash: Readings
+## :hash: Packages
+—**TODO**—
