@@ -2,9 +2,9 @@
 
 # <small>(Project:)</small> ∷escasᴛısᴛ
 # *Ast Interpretation & Substitution Tooling*
-## [npm][`@escastist`](https://www.npmjs.com/org/escastist)
+## npm :paperclip: [`@escastist`](https://www.npmjs.com/org/escastist)
 ### —*Overview*—
----`
+---
 
 ## :hash: Acronym
 
@@ -20,9 +20,16 @@
 
 ## :hash: Project
 
++
+    :office: 
+    -   **ısmo.**
+        *   :octocat:
+            [`@`ismo-js](https://github.com/ismo-js)
+        *   :globe_with_meridans:
+            [~~ismo.nlang.nl~~](https://ismo.nlang.nl/)—*currently not hosted*
+
 +   :busts_in_silhouette:
     *Author(s)*
-    ∷ :office: [`@`ısmo](https://github.com/ismo-js)
     -   [J Schnell](https://git.io/probit)
         *   :octocat:
             [`@`probitlabs](https://github.com/probitlabs)
@@ -41,7 +48,7 @@
 ## :hash: Status
 Initialization phase.
 
-Also see [the `npm` project](https://www.npmjs.com/org/escastist).
+Also see [the `npm` project `@`escastist](https://www.npmjs.com/org/escastist).
 
 —*Not runnable*—
 

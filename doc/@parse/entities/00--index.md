@@ -1,7 +1,7 @@
 ![– escastist –](https://raw.githubusercontent.com/ismo-js/escastist/master/var/ismo-escastist-icon.256.png)
 
 
-# <small>(Entities:)</small> `@`∷escasᴛısᴛ
+# <small>(Entities:)</small> ∷escasᴛısᴛ
 ### —*Index*—
 ---
 
@@ -12,8 +12,6 @@
 
 ### == Kinds
 
-#### @ EcmaScript
-
 ##### *L(`i`)teral*
 → [@ `i` @](./kind/i--literal.md)
 ##### *(`e`)xpression*
@@ -22,8 +20,6 @@
 → [@ `a` @](./kind/a--statem.md)
 ##### *Str(`u`)cture*
 → [@ `u` @](./kind/u--struct.md)
-
-#### @ TypeScript
 ##### *(`o`)—Typing*:
 → [@ `o` @](./kind/o--typing.md)
 
