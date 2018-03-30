@@ -1,8 +1,7 @@
-![neon^](https://placehold.it/360/c2ff23/ff23c2?text=neon^)
 ![– escastist –](https://placehold.it/360/ff23c2/c2ff23?text=–%20escastist%20–)
 
-# <small>(Entities:)</small> escasᴛısᴛ
-## [npm]`@ismo/escastist`
+# <small>(Entities:)</small> `@`∷escasᴛısᴛ
+## [npm]`@escastist/parse`
 ### —*Index*—
 ---
 
