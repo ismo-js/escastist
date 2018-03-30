@@ -4,7 +4,7 @@ import {
 
 // ~~~
 
-export default function scan(
+export default function lex(
 
 ) {
 

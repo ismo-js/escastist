@@ -1,13 +1,13 @@
-import {a, e, o, u} from "../key-syms"
+import {a, e, o, u} from "./key-syms"
 
 // ~~~
 
 export const map = {
-    "await": e.flow.AWAIT,
+    "await": e.prom.AWAIT,
     "break": a.flow.BREAK,
 
     "case": a.flow.CASE,
-    "catch": a.except.CATCH,
+    "catch": a.exc.CATCH,
     "class": u.cls.CLASS,
     "const": a.decl.CONST,
     "continue": a.flow.CONTINUE,
@@ -17,15 +17,15 @@ export const map = {
     "delete": a.decl.DELETE,
     "do": a.flow.DO,
 
-    "else": a.flow.ELSE,
+    "else": a.bra.ELSE,
     "export": o.mod.EXPORT,
     "extends": u.cls.EXTENDS,
 
-    "finally": a.except.FINALLY,
+    "finally": a.exc.FINALLY,
     "for": a.flow.FOR,
-    "function": a.flow.FUNCTION,
+    "function": u.flow.FUN,
 
-    "if": a.flow.IF,
+    "if": a.bra.IF,
     "import": o.mod.IMPORT,
     "in": e.oper.IN,
 
