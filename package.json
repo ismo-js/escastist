@@ -1,8 +1,7 @@
 {
-    "name": "@ismo/neon-base",
+    "name": "@escastist/base",
     "private": true,
     "devDependencies": {
-    },
-    "dependencies": {
+        "lerna": "^2.8.0"
     }
 }

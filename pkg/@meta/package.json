@@ -1,8 +1,8 @@
 {
-    "name": "@ismo/escastist",
+    "name": "@escastist/meta",
     "description": "EcmaScript Abstract Syntax Tree Interpretation & Substitution Tooling",
     "license": "GPL-3.0",
-    "repository": "ismo-js/neon",
+    "repository": "ismo-js/escastist",
     "main": "lib/meta.js",
     "types": "lib/meta.d.ts",
     "version": "0.1.0",
