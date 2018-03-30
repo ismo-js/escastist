@@ -25,7 +25,7 @@
     -   **ısmo.**
         *   :octocat:
             [`@`ismo-js](https://github.com/ismo-js)
-        *   :globe_with_meridans:
+        *   :globe_with_meridians:
             [~~ismo.nlang.nl~~](https://ismo.nlang.nl/)—*currently not hosted*
 
 +   :busts_in_silhouette:
