@@ -1,4 +1,4 @@
-![– escastist –](https://placehold.it/360/ff23c2/c2ff23?text=–%20escastist%20–)
+![– escastist –](https://raw.githubusercontent.com/ismo-js/escastist/master/var/ismo-escastist-icon.256.png)
 
 # <small>(Package:)</small> `@`meta
 ## [npm]`@escastist/meta`[`@escastist`](https://www.npmjs.com/package/@escastist/meta)
