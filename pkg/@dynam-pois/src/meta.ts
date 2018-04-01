@@ -40,4 +40,5 @@ export async function generate(
     const ucdSrcBuffer = await fs.readFile("../var/ucd.nounihan.grouped.xml")
     const ucdDom = new JSDOM(ucdSrcBuffer, {contentType})
     const ucdDoc = ucdDom.window.document
+    const charTags = ucdDoc.getElementsByTagName("char")
 }
