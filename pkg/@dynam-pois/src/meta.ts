@@ -24,6 +24,15 @@ export enum Plane {
     supplSpecial = 0xe,
 }
 
+export namespace Plane {
+    export const planes = [
+        Plane.basicMultilingual,
+        Plane.supplMultilingual,
+        Plane.supplIdeographic,
+        Plane.supplSpecial,
+    ]
+}
+
 export async function generate(
     planes :Plane[],
 ) {
