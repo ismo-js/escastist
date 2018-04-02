@@ -27,7 +27,9 @@ function main() {
 }
 
 function genPlanes(details :string[]) {
-    const [...planeStrs] = process.argv[3].split(":")
+    console.log("=> Startin: " + details.join(" @ "))
+
+    const [...planeStrs] = details[0].split(":")
 
     const planes = planeStrs.length
         ? planeStrs.map((planeStr) => {
@@ -43,20 +45,21 @@ function genPlanes(details :string[]) {
         })
         : Plane.planes
 
-    generate(planes)
+    generate(planes, details[1] || ".")
 }
 
 function genAll(details :string[]) {
-    if (details.length) throw new Error(`
+    if (1 < details.length) throw new Error(`
         gen-all:
         Superfluous vargs.
     `)
 
-    const args = ["0:e", "1:2"]
+    const forkArgs = ["0:e", "1:2"]
+    const out = details[0]
 
-    for (let arg of args.slice(1))
-        fork(__filename, ["gen-planes", arg])
-    genPlanes
+    for (let arg of forkArgs.slice(1))
+        fork(__filename, ["gen-planes", arg, out])
+    genPlanes([forkArgs[0], out])
 }
 
 main()
