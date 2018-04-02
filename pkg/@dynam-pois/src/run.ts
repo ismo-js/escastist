@@ -56,7 +56,7 @@ function genAll(details :string[]) {
         Superfluous vargs.
     `)
 
-    const forkArgs = ["0:e", "1:2"]
+    const forkArgs = ["1:e", "0", "2"]
     const out = details[0]
 
     for (let arg of forkArgs.slice(1))

@@ -14,9 +14,7 @@ import fromEv from "xstream/extra/fromEvent"
 
 // @@@
 
-import {
-    Int, isInt,
-} from "@beyond-life/lowbar"
+import {Int, isInt} from "@beyond-life/lowbar"
 
 import {Entry, Poi} from "./props"
 import {Plane, PLANE_LEN, PLANE_MASK} from "./plane"
@@ -29,20 +27,38 @@ export async function generate(
     planes :Plane[],
     outPath :string,
 ) {
+    const plStr = planes.map((e)=> e.toString(16)).join(":")
+    console.group("#gen-" + plStr)
+    console.time("#dom")
+
     const joinHere = join.bind(null, __dirname)
     const contentType = "application/xml"
-    const ucdDom = await Dom.fromFile(
+    const dom = await Dom.fromFile(
         joinHere("../var/ucd.nounihan.grouped.xml"),
         {contentType}
     )
 
-    console.log("=> DOM generated…")
+    console.timeEnd("#dom")
+    console.log(`=> #gen-${plStr}-stm:
+        DOM generated… — streaming`)
+    console.time("#stm")
 
+    const charTags = dom.window.document.getElementsByTagName("char")
+    const charTag$ = $.create(new DomNodeProdc<Element>(charTags))
+
+    console.timeEnd("#stm")
+    console.log(`=> #gen-${plStr}-xtc:
+        Nodes streamed … — extracting:`)
+    console.time("#xtc")
+    
     const planeBins = planes.map(pl =>
-        [pl, extract(ucdDom, pl)] as [Plane, Uint8Array]
+        [pl, extract(charTag$, pl)] as [Plane, Uint8Array]
     )
 
-    console.log("=> Plane blobs generated…")
+    console.timeEnd("#xtc")
+    console.log(`=> #gen-${plStr}-wrt:
+        Plane blobs generated… — writing`)
+    console.time("#wrt")
     
     const wrPromises = planeBins.map(([pl, bin]) => {
         const filePath = join(
@@ -57,55 +73,50 @@ export async function generate(
     })
 
     await Promise.all(wrPromises)
-    console.log("=> Files written…")
+
+    console.timeEnd("#wrt")
+    console.log(`=> #gen-${plStr}-end:
+        Files written…`)
 }
 
 // ---
 
-function getChar$(document :Document) {
-    console.log(`===##> Getting DOM nodes…`)
-    console.time("#get")
-    const nodes = document.getElementsByTagName("char")
-    console.timeEnd("#get")
+// + Producer iterating over DOM's `NodeList`s:
+class DomNodeProdc<NodeT extends Node> implements Producer<NodeT> {
+    running = false
 
-    console.log(`===##> Streaming DOM nodes…`)
-    const node$ = $.create(new class ElemProducer implements Producer<Element> {
-        running = false
+    constructor (readonly nodes :NodeList) {}
 
-        start(lis :Listener<Element>) {
-            this.running = true
-            for (let node of nodes) setImmediate(() =>
-                this.running ? lis.next(node) : void 0
-            )
-        }
+    start(lis :Listener<NodeT>) {
+        this.running = true
 
-        stop() {
-            this.running = false
-        }
-    })
+        for (let node of this.nodes) setImmediate(()=> {
+            const next = ()=> lis.next(node as NodeT)
+            
+            if (this.running) next()
+        })
+    }
 
-    return node$
+    stop() {
+        this.running = false
+    }
 }
 
+// + Extracts info from a char element stream → binary form:
 export function extract(
-    dom :Dom,
+    tag$ :$<Element>,
     plane :Plane,
 ) :Uint8Array {
-    const {document} = dom.window
+    console.group("#xtc")
 
-    console.log(`===> Enumerating ${Plane[plane]} plane's chars…`)
-    // Char tag nodes:
-    const charTag$ :$<Element> = getChar$(document)
-    console.log(`===> Filtering ${Plane[plane]} plane's chars…`)
-    const planeCharTag$ = charTag$.filter((charTag :Element) => {
+    const onlyPlaneTag$ = tag$.filter((charTag :Element) => {
         const poiI = parseInt(charTag.getAttribute("cp")!, 16)
         const planeI = poiI >> 0x10
         const onPlane = plane as number === planeI
 
         return onPlane
     })
-    console.log(`===> ${Plane[plane]} plane's chars filtered…`)
-    const attrEntries$ = planeCharTag$.map((charTag :Element) :Entry[] =>
+    const attrEntries$ = onlyPlaneTag$.map((charTag :Element) :Entry[] =>
         Poi.attrNames.map(attr => {
             let val
             let tag = charTag
@@ -117,15 +128,18 @@ export function extract(
             return [attr, val || ""] as Entry
         })
     )
+
+    console.log(`=> Inspecting ${Plane[plane]} plane…`)
+
     const pois = attrEntries$.map((entries :Entry[]) :Poi => 
         new Poi(entries)
     )
 
-    console.log(`===> Allocating ${Plane[plane]} plane array…`)
+    console.log(`=> Allocating ${Plane[plane]} plane array…`)
 
     const bin = new Uint8Array(PLANE_LEN)
 
-    console.log(`===> Binarizing ${Plane[plane]} plane…`)
+    console.log(`=> Binarizing ${Plane[plane]} plane…`)
 
     pois.map(poi =>
         bin.set(
@@ -134,6 +148,8 @@ export function extract(
         )
     )
 
-    console.log(`===> ${Plane[plane]} plane binarized…`)
+    console.log(`=> ${Plane[plane]} plane binarized…`)
+    console.groupEnd()
+
     return bin
 }
