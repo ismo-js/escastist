@@ -1,6 +1,6 @@
 import * as fs from "fs-extra"
 
-import {JSDOM} from "jsdom"
+import {JSDOM as Dom} from "jsdom"
 
 import {
     Stream as $,
@@ -39,22 +39,22 @@ export async function generate(
     planes :Plane[],
 ) {
     const contentType = "application/xml"
-    const ucdDom = await JSDOM.fromFile(
+    const ucdDom = await Dom.fromFile(
         "../var/ucd.nounihan.grouped.xml",
         {contentType}
     )
-    const ucdAttrs = extract(ucdDom)
+    const binArray = extract(ucdDom)
 }
 
 export function extract(
-    dom :JSDOM,
-) {
-    const ucdDoc = dom.window.document
+    dom :Dom,
+) :Int8Array {
+    const {document} = dom.window
 
     // Char tag nodes:
-    const charTags = [...ucdDoc.getElementsByTagName("char")]
+    const charTags = [...document.getElementsByTagName("char")]
     const attrEntries = charTags.map((charTag :Element) :Entry[] =>
-        Poi.attrNames.map((attr :string) => {
+        Poi.attrNames.map(attr => {
             let val
             let tag = charTag
             do {
@@ -64,5 +64,8 @@ export function extract(
 
             return [attr, val || ""] as Entry
         })
+    )
+    const pois = attrEntries.map((entries :Entry[]) :Poi => 
+        new Poi(entries)
     )
 }

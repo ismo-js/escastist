@@ -1,3 +1,7 @@
+import {Int} from "@beyond-life/lowbar"
+
+// ~~~
+
 export namespace props {
     export enum Kind {
         nil         = 0x0,
@@ -21,8 +25,6 @@ export namespace props {
 export enum Shift {
     kind        = 0x0,
     digit       = 0x4,
-    oper        = 0x4,
-    brac        = 0x6,
 }
 
 export type Entry = [string, string]
@@ -30,6 +32,7 @@ export type Entry = [string, string]
 export class Poi {
     static readonly attrNames = [
         // * General:
+        "cp", // code point
         "gc", // category
         // * Num:
         "Hex", // hex digit
@@ -38,6 +41,8 @@ export class Poi {
         "IDC", // ID continue
         "Pat_Syn", // syntax
     ]
+
+    readonly poiI :Int
 
     readonly ucdInfo :{
         gc :string
@@ -49,12 +54,31 @@ export class Poi {
 
     constructor (es :Entry[]) {
         const info = {}
+        let poiI = null
         for (let e in es) {
             const [k, value] = e
+
+            if ("cp" === k)
+                poiI = parseInt(value, 16) as Int
 
             Reflect.defineProperty(info, k.toLowerCase(), {value})
         }
 
         this.ucdInfo = info as Poi["ucdInfo"]
+        this.poiI = poiI!
+    }
+
+    get kindI() {
+        return 0x0
+    }
+
+    get digitI() {
+        return 0x0
+    }
+
+    get propsI() {
+        return 0
+            | this.kindI << Shift.kind
+            | this.digitI << Shift.digit
     }
 }
