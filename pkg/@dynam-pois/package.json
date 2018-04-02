@@ -17,9 +17,11 @@
         "fs-extra": "^5.0.0",
         "jsdom": "^11.6.2",
         "reflect-metadata": "^0.1.10",
-        "xstream": "^11.2.0"
+        "xstream": "^11.2.0",
+        "argparse": "^10.0.10"
     },
     "devDependencies": {
+        "@types/argparse": "^1.0.33",
         "@types/fs-extra": "^5.0.1",
         "@types/jsdom": "^11.0.4",
         "@types/node": "^9.6.1"
