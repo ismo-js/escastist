@@ -2,29 +2,18 @@
 
 import {Int} from "@beyond-life/lowbar"
 
+import parse from "./flags"
 import gen from "./predicates/gen"
 
 // ~~~
 
 function main() {
-    const {argv} = process
-    const getPredicate = () => {switch (argv[2] || "") {
-        case "gen-some":
-            return gen.some
-        case "gen-all":
-        case "":
-            return gen.all
-        default:
-            throw new class extends Error {
-                readonly exitCode = 127
-                constructor () {
-                    super(`main: Inexistent predicate requested!`)
-                }
-            }
-    }}
-
+    const flags = parse(process.argv.slice(2))
+    
+    console.dir(flags)
+    
     try {
-        getPredicate()(argv.slice(3))
+        void 0
     } catch (e) {
         console.trace(e)
         process.exit(

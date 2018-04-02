@@ -5,7 +5,7 @@
     "repository": "ismo-js/escastist",
     "main": "lib/meta.js",
     "bin": {
-        "poi": "lib/run/index.js"
+        "pois": "lib/run/index.js"
     },
     "types": "lib/meta.d.ts",
     "version": "0.1.0",
@@ -18,7 +18,7 @@
         "jsdom": "^11.6.2",
         "reflect-metadata": "^0.1.10",
         "xstream": "^11.2.0",
-        "argparse": "^10.0.10"
+        "argparse": "^1.0.10"
     },
     "devDependencies": {
         "@types/argparse": "^1.0.33",
