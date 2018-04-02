@@ -7,6 +7,8 @@ import {JSDOM as Dom} from "jsdom"
 import {
     Stream as $,
     MemoryStream as Mem$,
+    Producer,
+    Listener,
 } from "xstream"
 import fromEv from "xstream/extra/fromEvent"
 
@@ -61,7 +63,7 @@ export async function generate(
     const wrPromises = planeBins.map(([pl, bin]) => {
         const filePath = join(
             outPath,
-            `${pl.toString(16)}--${Plane[pl]}.ucd.blob`
+            `${pl.toString(16)}--${Plane[pl]}.blob`
         )
         
         return fs.writeFile(
@@ -79,6 +81,35 @@ export async function generate(
 const PLANE_LEN = 0xFFFE as Int
 const PLANE_MASK :number = 0xFFFF
 
+// ! Cache only works for one document
+function getChar$(document :Document) {
+    console.log(`===##> Getting nodes…`)
+    console.time("#get")
+    const nodes = document.getElementsByTagName("char")
+    console.timeEnd("#get")
+    console.log(`===##> Streaming nodes…`)
+    console.time("#stm")
+    const node$ = $.create(new class ElemProducer implements Producer<Element> {
+        running = false
+
+        start(lis :Listener<Element>) {
+            const curSym = Symbol("# [Listener]")
+
+            this.running = true
+            for (let node of nodes) setImmediate(() =>
+                this.running ? lis.next(node) : void 0
+            )
+        }
+
+        stop() {
+            this.running = false
+        }
+    })
+    console.timeEnd("#stm")
+
+    return node$
+}
+
 export function extract(
     dom :Dom,
     plane :Plane,
@@ -89,9 +120,9 @@ export function extract(
     console.log(`===> Enumerating ${Plane[plane]} plane's chars…`)
 
     // Char tag nodes:
-    const charTags = [...document.getElementsByTagName("char")]
+    const charTag$ :$<Element> = getChar$(document)
     console.log(`===> Filtering ${Plane[plane]} plane's chars…`)
-    const planeCharTags = charTags.filter((charTag :Element) => {
+    const planeCharTag$ = charTag$.filter((charTag :Element) => {
         const poiI = parseInt(charTag.getAttribute("cp")!, 16)
         const planeI = poiI >> 0x10
         const onPlane = plane as number === planeI
@@ -99,7 +130,7 @@ export function extract(
         return onPlane
     })
     console.log(`===> ${Plane[plane]} plane's chars filtered…`)
-    const attrEntries = planeCharTags.map((charTag :Element) :Entry[] =>
+    const attrEntries$ = planeCharTag$.map((charTag :Element) :Entry[] =>
         Poi.attrNames.map(attr => {
             let val
             let tag = charTag
@@ -111,7 +142,7 @@ export function extract(
             return [attr, val || ""] as Entry
         })
     )
-    const pois = attrEntries.map((entries :Entry[]) :Poi => 
+    const pois = attrEntries$.map((entries :Entry[]) :Poi => 
         new Poi(entries)
     )
 
@@ -121,7 +152,7 @@ export function extract(
 
     console.log(`===> Binarizing ${Plane[plane]} plane…`)
 
-    pois.forEach(poi =>
+    pois.map(poi =>
         bin.set(
             [poi.propsI],
             poi.poiI & PLANE_MASK
