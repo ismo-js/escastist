@@ -5,7 +5,7 @@
     "repository": "ismo-js/escastist",
     "main": "lib/meta.js",
     "bin": {
-        "poi": "lib/run.js"
+        "poi": "lib/run/index.js"
     },
     "types": "lib/meta.d.ts",
     "version": "0.1.0",
