@@ -52,10 +52,11 @@ function genAll(details :string[]) {
         Superfluous vargs.
     `)
 
-    const args = [["0:e"], ["1:2"]]
+    const args = ["0:e", "1:2"]
 
-    for (let arg of args)
-        fork(__filename, arg)
+    for (let arg of args.slice(1))
+        fork(__filename, ["gen-planes", arg])
+    genPlanes
 }
 
 main()
