@@ -9,7 +9,7 @@
     },
     "types": "lib/meta.d.ts",
     "version": "0.1.0",
-    "peerDependencies": {
+    "optionalDependencies": {
         "@escastist/pois-masker": "^0.1.0"
     },
     "dependencies": {
