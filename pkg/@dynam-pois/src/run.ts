@@ -4,10 +4,8 @@ import {fork} from "child_process"
 
 // @@@
 
-import {
-    Plane,
-    generate,
-} from "./meta"
+import {Plane} from "./plane"
+import {generate} from "./meta"
 
 // ~~~
 
@@ -31,7 +29,7 @@ function main() {
 function genPlanes(details :string[]) {
     console.log("=> Startin: " + details.join(" @ "))
 
-    const [...planeStrs] = details[0].split(":")
+    const [...planeStrs] = details[0]
 
     const planes = planeStrs.length
         ? planeStrs.map((planeStr) => {
@@ -56,7 +54,11 @@ function genAll(details :string[]) {
         Superfluous vargs.
     `)
 
-    const forkArgs = ["1:e", "0", "2"]
+    const forkArgs = [
+        "1e",
+        //… means: **this** process looks up for plane `0x1` and `0xe`
+        "0", "2",
+    ]
     const out = details[0]
 
     for (let arg of forkArgs.slice(1))

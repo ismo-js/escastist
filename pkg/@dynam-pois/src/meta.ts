@@ -1,4 +1,5 @@
 import {join} from "path"
+const joinHere = join.bind(null, __dirname)
 
 import * as fs from "fs-extra"
 
@@ -16,22 +17,33 @@ import fromEv from "xstream/extra/fromEvent"
 
 import {Int, isInt} from "@beyond-life/lowbar"
 
-import {Entry, Poi} from "./props"
-import {Plane, PLANE_LEN, PLANE_MASK} from "./plane"
+import {
+    props,
+    Masker, MaskerFun, Masks, Mask,
+    Entry, Poi,
+} from "./props"
+import {
+    Plane,
+    PLANE_LEN, PLANE_MASK,
+} from "./plane"
 
 // ~~~
 
-export {Plane}
+export {
+    Int,
+    props, Masker, MaskerFun, Masks, Mask,
+    Plane,
+}
 
 export async function generate(
     planes :Plane[],
-    outPath :string,
+    outDirPath :string,
+    masker :Masker,
 ) {
     const plStr = planes.map((e)=> e.toString(16)).join(":")
     console.group("#gen-" + plStr)
     console.time("#dom")
 
-    const joinHere = join.bind(null, __dirname)
     const contentType = "application/xml"
     const dom = await Dom.fromFile(
         joinHere("../var/ucd.nounihan.grouped.xml"),
@@ -62,8 +74,8 @@ export async function generate(
     
     const wrPromises = planeBins.map(([pl, bin]) => {
         const filePath = join(
-            outPath,
-            `${pl.toString(16)}--${Plane[pl]}.blob`
+            outDirPath,
+            `${pl.toString(16)}--${Plane[pl]}.blob`,
         )
         
         return fs.writeFile(
@@ -82,7 +94,7 @@ export async function generate(
 // ---
 
 // + Producer iterating over DOM's `NodeList`s:
-class DomNodeProdc<NodeT extends Node> implements Producer<NodeT> {
+export class DomNodeProdc<NodeT extends Node> implements Producer<NodeT> {
     running = false
 
     constructor (readonly nodes :NodeList) {}
