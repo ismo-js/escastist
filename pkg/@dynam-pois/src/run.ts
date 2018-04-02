@@ -4,6 +4,8 @@ import {fork} from "child_process"
 
 // @@@
 
+import {Int} from "@beyond-life/lowbar"
+
 import {Plane} from "./plane"
 import {generate} from "./meta"
 
@@ -18,19 +20,26 @@ function main() {
         case "":
             return genAll
         default:
-            throw new Error(`
-                Inexistent predicate requested.
-            `)
+            throw new class extends Error {
+                readonly exitCode = 127
+                constructor () {
+                    super(`main: Inexistent predicate requested!`)
+                }
+            }
     }}
 
-    getPredicate()(argv.slice(3))
+    try {
+        getPredicate()(argv.slice(3))
+    } catch (e) {
+        console.trace(e)
+        process.exit(
+            (e as {exitCode? :Int}).exitCode || 126,
+        )
+    }
 }
 
 function genPlanes(details :string[]) {
-    console.log("=> Startin: " + details.join(" @ "))
-
     const [...planeStrs] = details[0]
-
     const planes = planeStrs.length
         ? planeStrs.map((planeStr) => {
             const planeI = parseInt(planeStr, 16)
@@ -44,8 +53,9 @@ function genPlanes(details :string[]) {
             return planeI as Plane
         })
         : Plane.planes
+    const outDirPath = details[1] || "."
 
-    generate(planes, details[1] || ".")
+    generate({planes, outDirPath, cons: console})
 }
 
 function genAll(details :string[]) {

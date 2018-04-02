@@ -35,14 +35,16 @@ export {
     Plane,
 }
 
+// ---
+
 export async function generate(
-    planes :Plane[],
-    outDirPath :string,
-    masker :Masker,
+    {planes, outDirPath, masker, cons} :generate.Options,
 ) {
     const plStr = planes.map((e)=> e.toString(16)).join(":")
-    console.group("#gen-" + plStr)
-    console.time("#dom")
+    if (cons) {
+        cons.group("#gen-" + plStr)
+        cons.time("#dom")
+    }
 
     const contentType = "application/xml"
     const dom = await Dom.fromFile(
@@ -50,27 +52,33 @@ export async function generate(
         {contentType}
     )
 
-    console.timeEnd("#dom")
-    console.log(`=> #gen-${plStr}-stm:
-        DOM generated… — streaming`)
-    console.time("#stm")
+    if (cons) {
+        cons.timeEnd("#dom")
+        cons.log(`=> #gen-${plStr}-stm:
+            DOM generated… — streaming`)
+        cons.time("#stm")
+    }
 
     const charTags = dom.window.document.getElementsByTagName("char")
     const charTag$ = $.create(new DomNodeProdc<Element>(charTags))
 
-    console.timeEnd("#stm")
-    console.log(`=> #gen-${plStr}-xtc:
-        Nodes streamed … — extracting:`)
-    console.time("#xtc")
+    if (cons) {
+        cons.timeEnd("#stm")
+        cons.log(`=> #gen-${plStr}-xtc:
+            Nodes streamed … — extracting:`)
+        cons.time("#xtc")
+    }
     
     const planeBins = planes.map(pl =>
-        [pl, extract(charTag$, pl)] as [Plane, Uint8Array]
+        [pl, extract(charTag$, pl, cons)] as [Plane, Uint8Array]
     )
 
-    console.timeEnd("#xtc")
-    console.log(`=> #gen-${plStr}-wrt:
-        Plane blobs generated… — writing`)
-    console.time("#wrt")
+    if (cons) {
+        cons.timeEnd("#xtc")
+        cons.log(`=> #gen-${plStr}-wrt:
+            Plane blobs generated… — writing`)
+        cons.time("#wrt")
+    }
     
     const wrPromises = planeBins.map(([pl, bin]) => {
         const filePath = join(
@@ -86,12 +94,23 @@ export async function generate(
 
     await Promise.all(wrPromises)
 
-    console.timeEnd("#wrt")
-    console.log(`=> #gen-${plStr}-end:
-        Files written…`)
+    if (cons) {
+        cons.timeEnd("#wrt")
+        cons.log(`=> #gen-${plStr}-end:
+            Blob files written…`)
+    }
 }
 
 // ---
+
+export namespace generate {
+    export interface Options {
+        planes :Plane[]
+        outDirPath :string
+        masker? :Masker
+        cons? :Console
+    }
+}
 
 // + Producer iterating over DOM's `NodeList`s:
 export class DomNodeProdc<NodeT extends Node> implements Producer<NodeT> {
@@ -118,8 +137,9 @@ export class DomNodeProdc<NodeT extends Node> implements Producer<NodeT> {
 export function extract(
     tag$ :$<Element>,
     plane :Plane,
+    cons? :Console,
 ) :Uint8Array {
-    console.group("#xtc")
+    if (cons) cons.group("#xtc")
 
     const onlyPlaneTag$ = tag$.filter((charTag :Element) => {
         const poiI = parseInt(charTag.getAttribute("cp")!, 16)
@@ -141,17 +161,17 @@ export function extract(
         })
     )
 
-    console.log(`=> Inspecting ${Plane[plane]} plane…`)
+    if (cons) cons.log(`=> Inspecting ${Plane[plane]} plane…`)
 
     const pois = attrEntries$.map((entries :Entry[]) :Poi => 
         new Poi(entries)
     )
 
-    console.log(`=> Allocating ${Plane[plane]} plane array…`)
+    if (cons) cons.log(`=> Allocating ${Plane[plane]} plane array…`)
 
     const bin = new Uint8Array(PLANE_LEN)
 
-    console.log(`=> Binarizing ${Plane[plane]} plane…`)
+    if (cons) cons.log(`=> Binarizing ${Plane[plane]} plane…`)
 
     pois.map(poi =>
         bin.set(
@@ -160,8 +180,10 @@ export function extract(
         )
     )
 
-    console.log(`=> ${Plane[plane]} plane binarized…`)
-    console.groupEnd()
+    if (cons) {
+        cons.log(`=> ${Plane[plane]} plane binarized…`)
+        cons.groupEnd()
+    }
 
     return bin
 }
