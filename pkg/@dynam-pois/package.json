@@ -4,6 +4,9 @@
     "license": "GPL-3.0",
     "repository": "ismo-js/escastist",
     "main": "lib/meta.js",
+    "bin": {
+        "poi": "lib/run.js"
+    },
     "types": "lib/meta.d.ts",
     "version": "0.1.0",
     "dependencies": {

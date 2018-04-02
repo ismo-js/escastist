@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import {fork} from "child_process"
 
 // @@@

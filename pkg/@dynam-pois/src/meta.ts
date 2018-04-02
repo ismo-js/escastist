@@ -19,27 +19,11 @@ import {
 } from "@beyond-life/lowbar"
 
 import {Entry, Poi} from "./props"
+import {Plane, PLANE_LEN, PLANE_MASK} from "./plane"
 
 // ~~~
 
-export enum Plane {
-    basicMultilingual = 0x0,
-    supplMultilingual = 0x1,
-    supplIdeographic = 0x2,
-    // […] — empty planes
-    supplSpecial = 0xe,
-}
-
-export namespace Plane {
-    export const planes = [
-        Plane.basicMultilingual,
-        Plane.supplMultilingual,
-        Plane.supplIdeographic,
-        Plane.supplSpecial,
-    ]
-}
-
-// ---
+export {Plane}
 
 export async function generate(
     planes :Plane[],
@@ -78,23 +62,17 @@ export async function generate(
 
 // ---
 
-const PLANE_LEN = 0xFFFE as Int
-const PLANE_MASK :number = 0xFFFF
-
-// ! Cache only works for one document
 function getChar$(document :Document) {
-    console.log(`===##> Getting nodes…`)
+    console.log(`===##> Getting DOM nodes…`)
     console.time("#get")
     const nodes = document.getElementsByTagName("char")
     console.timeEnd("#get")
-    console.log(`===##> Streaming nodes…`)
-    console.time("#stm")
+
+    console.log(`===##> Streaming DOM nodes…`)
     const node$ = $.create(new class ElemProducer implements Producer<Element> {
         running = false
 
         start(lis :Listener<Element>) {
-            const curSym = Symbol("# [Listener]")
-
             this.running = true
             for (let node of nodes) setImmediate(() =>
                 this.running ? lis.next(node) : void 0
@@ -105,7 +83,6 @@ function getChar$(document :Document) {
             this.running = false
         }
     })
-    console.timeEnd("#stm")
 
     return node$
 }
@@ -114,11 +91,9 @@ export function extract(
     dom :Dom,
     plane :Plane,
 ) :Uint8Array {
-    console.log(`===> Accessing ${Plane[plane]} plane's DOM…`)
     const {document} = dom.window
 
     console.log(`===> Enumerating ${Plane[plane]} plane's chars…`)
-
     // Char tag nodes:
     const charTag$ :$<Element> = getChar$(document)
     console.log(`===> Filtering ${Plane[plane]} plane's chars…`)
