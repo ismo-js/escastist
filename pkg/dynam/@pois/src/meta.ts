@@ -31,7 +31,8 @@ import {
 
 export {
     Int,
-    props, Masker, MaskerFun, Masks, Mask,
+    Masker, MaskerFun, Masks, Mask,
+    props, Poi,
     Plane,
 }
 
