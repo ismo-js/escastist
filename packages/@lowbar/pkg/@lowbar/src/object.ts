@@ -51,3 +51,9 @@ export function refKey(
         }
     }
 }
+
+// ---
+
+export type Nullable<In> = {
+    [Prop in keyof In] :In[Prop] | null
+}

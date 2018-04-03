@@ -1,7 +1,7 @@
 {
     "name": "@beyond-life/lowbar",
     "description": "Helper library for life and beyond…",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "author": {
         "name": "J Schnell",
         "email": "labs@probit.link",
