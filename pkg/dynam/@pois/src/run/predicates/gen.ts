@@ -1,5 +1,5 @@
 import {fork} from "child_process"
-const forkThis = fork.bind(null, __filename)
+import {join} from "path"
 
 // @@@
 
@@ -10,11 +10,14 @@ import {generate} from "../../meta"
 
 namespace gen {
     export function some({planes, outDirPath, verbose} :any) {
-        const planeIs = [...planes as string].map((pl) => {
+        console.log(`*> some—Verbose: ${verbose}`)
+
+        const planeIs = [
+            ...(planes as string).trim(),
+        ].map((pl) => {
             const planeI = parseInt(pl, 16)
 
             if (!(planeI in Plane)) throw new Error(`
-                gen-planes:
                 Incorrect plane index varg "${pl}"
                 in "${pl}".
             `)
@@ -30,20 +33,21 @@ namespace gen {
         })
     }
 
-    export function all({masker, outDirPath, verbose} :any) {
-        const forkPlanes = [
-            "1e",
-            //… means: **this** process looks up for plane `0x1` and `0xe`
-            "0", "2",
-        ]
+    const forkPlanes = [
+        "1e",
+        //… means: **this** process looks up for plane `0x1` and `0xe`
+        "0", "2",
+    ]
+    const runPath = join(__dirname, "../index.js")
 
+    export function all({masker, outDirPath, verbose} :any) {
         for (let forkPlaneStr of forkPlanes.slice(1))
-            forkThis([
+            fork(runPath, [
                 "gen-some",
                 "-p" + forkPlaneStr,
                 ...(masker as string[]).map(m => "-m" + m),
                 ...Array(Number(verbose)) // Array with length = verbose
-                    .map(() => "-V"),
+                    .fill("-V"),
                 "-O" + outDirPath,
             ])
         some({
