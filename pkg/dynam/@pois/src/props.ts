@@ -1,4 +1,4 @@
-import {Int} from "@beyond-life/lowbar"
+import {Int, Nullable} from "@beyond-life/lowbar"
 
 import {Plane} from "./plane"
 
@@ -34,13 +34,13 @@ export enum Shift {
 export type Masker = MaskerFun | Map<keyof Plane, Masks>
 
 // Function for masking unicode properties before blobbing & writing
-export type MaskerFun = (poi :Int) => Mask
+export type MaskerFun = (poi :Poi) => Mask
 
-export type Masks = Mask[] | {[key :number] :Mask}
+export type Masks = Nullable<Mask>[] | {[key :number] :Mask}
 
 export interface Mask {
-    digit? :props.Digit | null
-    kind? :props.Kind | null
+    digit? :props.Digit
+    kind? :props.Kind 
 }
 
 // ---
