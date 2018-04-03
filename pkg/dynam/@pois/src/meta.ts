@@ -71,7 +71,7 @@ export async function generate(
     }
     
     const planeBins = planes.map(pl =>
-        [pl, extract(charTag$, pl, cons)] as [Plane, Uint8Array]
+        [pl, extract(charTag$, pl, cons)] as [Plane, Promise<Uint8Array>]
     )
 
     if (cons) {
@@ -81,15 +81,15 @@ export async function generate(
         cons.time("#wrt")
     }
     
-    const wrPromises = planeBins.map(([pl, bin]) => {
+    const wrPromises = planeBins.map(async ([pl, bin]) => {
         const filePath = join(
             outDirPath,
             `${pl.toString(16)}--${Plane[pl]}.blob`,
         )
         
-        return fs.writeFile(
+        await fs.writeFile(
             filePath,
-            bin,
+            await bin,
         )
     })
 
@@ -135,11 +135,11 @@ export class DomNodeProdc<NodeT extends Node> implements Producer<NodeT> {
 }
 
 // + Extracts info from a char element stream → binary form:
-export function extract(
+export async function extract(
     tag$ :$<Element>,
     plane :Plane,
     cons? :Console,
-) :Uint8Array {
+) :Promise<Uint8Array> {
     if (cons) cons.group("#xtc")
 
     const onlyPlaneTag$ = tag$.filter((charTag :Element) => {
@@ -164,21 +164,32 @@ export function extract(
 
     if (cons) cons.log(`=> Inspecting ${Plane[plane]} plane…`)
 
-    const pois = attrEntries$.map((entries :AttrEntry[]) :Poi => 
+    const poi$ = attrEntries$.map((entries :AttrEntry[]) :Poi => 
         new Poi(entries)
     )
 
     if (cons) cons.log(`=> Allocating ${Plane[plane]} plane array…`)
 
-    const bin = new Uint8Array(PLANE_LEN)
+    const binAlloc = new Uint8Array(PLANE_LEN)
 
-    if (cons) cons.log(`=> Binarizing ${Plane[plane]} plane…`)
+    if (cons) cons.log(`=> Binarizing ${Plane[plane]} plane better…`)
 
-    pois.map(poi =>
-        bin.set(
-            [poi.propsI],
-            poi.poiI & PLANE_MASK
+    const bin = await (poi$
+        .fold(
+            (lBin, poi) => {
+                const nBin = new Uint8Array(lBin)
+
+                if (cons) cons.log(`=== ${poi.poiI}`)
+                
+                nBin.set(
+                    [poi.propsI],
+                    poi.poiI & PLANE_MASK
+                )
+                return nBin
+            },
+            binAlloc
         )
+        .last()
     )
 
     if (cons) {

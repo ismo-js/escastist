@@ -57,7 +57,8 @@ class Poi {
         let poiI = null
 
         for (let e in entries) {
-            const [k, value] = e
+            const [k, attrValue] = e
+            const value = attrValue.trim()
 
             if ("cp" === k)
                 poiI = parseInt(value, 16) as Int
@@ -69,19 +70,41 @@ class Poi {
         this.poiI = poiI!
     }
 
-    get kindI() {
-        Poi.verticalTerms.includes(this.info.lb)
-        return 0x0
+    get kindI() :props.Kind {
+        if (Poi.verticalTerms.includes(this.info.lb))
+            return props.Kind.termVertical
+        switch ("Y") {
+            case this.info.pat_ws:
+                return props.Kind.termHorizontal
+            case this.info.ids:
+                return props.Kind.idStart
+            case this.info.idc:
+                return props.Kind.idContinue
+        }
+        switch (this.info.bpt) {
+            case "o":
+                return props.Kind.bracOpen
+            case "c":
+                return props.Kind.bracClose
+        }
+        return props.Kind.nil
     }
 
     get digitI() {
-        return 0x0
+        if ("De" === this.info.nt)
+            return props.Digit.decimal
+        if ("Y" === this.info.hex)
+            return props.Digit.hexadecimal
+        return props.Digit.nil
     }
 
     get propsI() {
-        return 0
+        const i = 0
             | this.kindI << Shift.kind
             | this.digitI << Shift.digit
+
+        console.log("I: " + i.toString(16))
+        return i as Int
     }
 }
 
@@ -92,10 +115,13 @@ namespace Poi {
         // + General:
         "cp", // code point
         "gc", // category
+        // + Num:
+        "nt", // type
+        "Hex", // hex digit
         // + Presentation:
         "lb",
-        // + Num:
-        "Hex", // hex digit
+        // + Directional:
+        "bpt",
         // + Pattern:
         "IDS", // ID start
         "IDC", // ID continue
@@ -105,19 +131,11 @@ namespace Poi {
 
     export type InfoNames = never
         | "gc"
+        | "hex" | "nt"
         | "lb"
-        | "hex"
+        | "bpt"
         | "ids" | "idc"
         | "pat_syn" | "pat_ws"
-    }
-
-    export const enum infoNames {
-        gc,
-        lb,
-        hex,
-        ids, idc,
-        pat_syn, pat_ws,
-    }
 }
 
 export {Poi}
