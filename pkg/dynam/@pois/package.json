@@ -8,7 +8,7 @@
         "pois": "lib/run/index.js"
     },
     "types": "lib/meta.d.ts",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "optionalDependencies": {
         "@escastist/pois-masker": "^0.1.0"
     },

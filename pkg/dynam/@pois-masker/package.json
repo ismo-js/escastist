@@ -1,11 +1,11 @@
 {
     "name": "@escastist/dynam-pois-masker",
     "license": "GPL-3.0",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "repository": "ismo-js/escastist",
     "main": "lib/meta.js",
     "types": "lib/meta.d.ts",
     "dependencies": {
-        "@escastist/dynam-pois": "0.1.1"
+        "@escastist/dynam-pois": "^0.1.2"
     }
 }
