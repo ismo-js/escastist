@@ -1,7 +1,7 @@
 {
-    "name": "@beyond-life/lowbar",
-    "description": "Helper library for life and beyond…",
-    "version": "0.1.5",
+    "name": "@escastist/lowbar",
+    "description": "escastist: Helper library",
+    "version": "0.1.0",
     "author": {
         "name": "J Schnell",
         "email": "labs@probit.link",
