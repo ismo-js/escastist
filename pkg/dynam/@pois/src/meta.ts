@@ -20,7 +20,7 @@ import {Int, isInt} from "@beyond-life/lowbar"
 import {
     props,
     Masker, MaskerFun, Masks, Mask,
-    Entry, Poi,
+    AttrEntry, Poi,
 } from "./props"
 import {
     Plane,
@@ -149,7 +149,7 @@ export function extract(
 
         return onPlane
     })
-    const attrEntries$ = onlyPlaneTag$.map((charTag :Element) :Entry[] =>
+    const attrEntries$ = onlyPlaneTag$.map((charTag :Element) :AttrEntry[] =>
         Poi.attrNames.map(attr => {
             let val
             let tag = charTag
@@ -158,13 +158,13 @@ export function extract(
             } while (null === val
                   && (tag = tag.parentElement!))
 
-            return [attr, val || ""] as Entry
+            return [attr, val || ""] as AttrEntry
         })
     )
 
     if (cons) cons.log(`=> Inspecting ${Plane[plane]} plane…`)
 
-    const pois = attrEntries$.map((entries :Entry[]) :Poi => 
+    const pois = attrEntries$.map((entries :AttrEntry[]) :Poi => 
         new Poi(entries)
     )
 

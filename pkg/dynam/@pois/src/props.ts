@@ -45,35 +45,18 @@ export interface Mask {
 
 // ---
 
-export type Entry = [string, string]
+export type AttrEntry = [string, string]
 
-export class Poi {
-    static readonly attrNames = [
-        // * General:
-        "cp", // code point
-        "gc", // category
-        // * Num:
-        "Hex", // hex digit
-        // * Pattern:
-        "IDS", // ID start
-        "IDC", // ID continue
-        "Pat_Syn", // syntax
-    ]
-
+class Poi {
     readonly poiI :Int
 
-    readonly ucdInfo :{
-        gc :string
-        hex :string
-        ids :string
-        idc :string
-        pat_syn :string
-    }
+    readonly info :Map<keyof Poi.infoNames, string>
 
-    constructor (es :Entry[]) {
+    constructor (entries :AttrEntry[]) {
         const info = {}
         let poiI = null
-        for (let e in es) {
+
+        for (let e in entries) {
             const [k, value] = e
 
             if ("cp" === k)
@@ -82,7 +65,7 @@ export class Poi {
             Reflect.defineProperty(info, k.toLowerCase(), {value})
         }
 
-        this.ucdInfo = info as Poi["ucdInfo"]
+        this.info = info as Poi["info"]
         this.poiI = poiI!
     }
 
@@ -100,3 +83,31 @@ export class Poi {
             | this.digitI << Shift.digit
     }
 }
+
+namespace Poi {
+    export const attrNames = [
+        // * General:
+        "cp", // code point
+        "gc", // category
+        // * Num:
+        "Hex", // hex digit
+        // * Pattern:
+        "IDS", // ID start
+        "IDC", // ID continue
+        "Pat_Syn", // syntax
+        "Pat_WS", // white space
+    ]
+
+    export const enum infoNames {
+        gc,
+        hex,
+  
+        ids,
+        idc,
+
+        pat_syn,
+        pat_ws,
+    }
+}
+
+export {Poi}
