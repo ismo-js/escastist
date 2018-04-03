@@ -8,3 +8,11 @@
 ## :hash: Woaha!
 
 It's a monorepo, muhahaha–haha–ha.
+
+## :hash: Structure
+
++   [`@`meta](pkg/@meta/)
++   [`@`var](pkg/@var/)
+
++   [core](pkg/core/)
++   [dynam](pkg/dynam/)

@@ -1,7 +1,9 @@
-import {Poi} from "@escastist/dynam-pois"
+import {Poi, Mask} from "@escastist/dynam-pois"
 
 // ~~~
 
-export default function x() {
+export default function mask(
+    poi :Poi,
+) :Mask {
 
 }
