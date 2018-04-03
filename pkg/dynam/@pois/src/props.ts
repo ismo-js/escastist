@@ -50,7 +50,7 @@ export type AttrEntry = [string, string]
 class Poi {
     readonly poiI :Int
 
-    readonly info :Map<keyof Poi.infoNames, string>
+    readonly info :{[I in Poi.InfoNames] :string}
 
     constructor (entries :AttrEntry[]) {
         const info = {}
@@ -70,6 +70,7 @@ class Poi {
     }
 
     get kindI() {
+        Poi.verticalTerms.includes(this.info.lb)
         return 0x0
     }
 
@@ -85,28 +86,37 @@ class Poi {
 }
 
 namespace Poi {
+    export const verticalTerms = ["BK", "CR", "LF", "NL"]
+
     export const attrNames = [
-        // * General:
+        // + General:
         "cp", // code point
         "gc", // category
-        // * Num:
+        // + Presentation:
+        "lb",
+        // + Num:
         "Hex", // hex digit
-        // * Pattern:
+        // + Pattern:
         "IDS", // ID start
         "IDC", // ID continue
         "Pat_Syn", // syntax
         "Pat_WS", // white space
     ]
 
+    export type InfoNames = never
+        | "gc"
+        | "lb"
+        | "hex"
+        | "ids" | "idc"
+        | "pat_syn" | "pat_ws"
+    }
+
     export const enum infoNames {
         gc,
+        lb,
         hex,
-  
-        ids,
-        idc,
-
-        pat_syn,
-        pat_ws,
+        ids, idc,
+        pat_syn, pat_ws,
     }
 }
 
