@@ -47,7 +47,7 @@
 
 
 ## :hash: Status
-Initialization phase.
+Build phase. Development focus currently stays on dynam`@`pois.
 
 Also see [the `npm` project `@`escastist](https://www.npmjs.com/org/escastist).
 
