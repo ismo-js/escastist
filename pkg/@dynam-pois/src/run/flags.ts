@@ -1,6 +1,10 @@
-import {ArgumentParser, ArgumentGroup} from "argparse"
+import {
+    ArgumentParser, ArgumentGroup
+} from "argparse"
 
 // ~~~
+
+export const PREDICATE = Symbol("predicate *")
 
 export function parse(
     argv :string[],
@@ -15,7 +19,10 @@ export function parse(
         epilog:
             "ısmo. — ∷escasᴛısᴛ",
     })
-    const subparser = topParser.addSubparsers({dest: "subcommandPredicate"})
+    const subparser = topParser.addSubparsers({
+        dest: PREDICATE as any,
+        //… Hacking @types/argparse's typing
+    })
 
     for (let curPred of predicates) {
         let [

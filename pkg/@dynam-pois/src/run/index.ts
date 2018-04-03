@@ -2,20 +2,25 @@
 
 import {Int} from "@beyond-life/lowbar"
 
-import {parse} from "./flags"
-import {interpret} from "./details"
+import {parse, PREDICATE} from "./flags"
 import gen from "./predicates/gen"
 
 // ~~~
 
 function main() {
     const flags = parse(process.argv.slice(2))
-    const details = interpret(flags)
-    
-    console.dir(flags)
-    
+    const getPredicate = () => {switch (flags[PREDICATE]) {
+        case "gen-all":
+            return gen.all
+        case "gen-some":
+            return gen.some
+        default:
+            process.exit(127)
+            return ()=> {} // Type hack; hack!
+    }}
+
     try {
-        void 0
+        getPredicate()(flags)
     } catch (e) {
         console.trace(e)
         process.exit(
@@ -23,6 +28,5 @@ function main() {
         )
     }
 }
-
 
 main()

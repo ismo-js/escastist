@@ -9,42 +9,47 @@ import {generate} from "../../meta"
 // ~~~
 
 namespace gen {
-    export function some(details :string[]) {
-        const [...planeStrs] = details[0]
-        const planes = planeStrs.length
-            ? planeStrs.map((planeStr) => {
-                const planeI = parseInt(planeStr, 16)
+    export function some({planes, outDirPath, verbose} :any) {
+        const planeIs = [...planes as string].map((pl) => {
+            const planeI = parseInt(pl, 16)
 
-                if (!(planeI in Plane)) throw new Error(`
-                    gen-planes:
-                    Incorrect plane index varg "${planeStr}"
-                    in "${planeStrs}".
-                `)
-                
-                return planeI as Plane
-            })
-            : Plane.planes
-        const outDirPath = details[1] || "."
+            if (!(planeI in Plane)) throw new Error(`
+                gen-planes:
+                Incorrect plane index varg "${pl}"
+                in "${pl}".
+            `)
+            
+            return planeI as Plane
+        })
 
-        generate({planes, outDirPath, cons: console})
+        generate({
+            planes: planeIs,
+
+            cons: !verbose ? void 0 : console,
+            outDirPath,
+        })
     }
 
-    export function all(details :string[]) {
-        if (1 < details.length) throw new Error(`
-            gen-all:
-            Superfluous vargs.
-        `)
-
-        const forkArgs = [
+    export function all({masker, outDirPath, verbose} :any) {
+        const forkPlanes = [
             "1e",
             //… means: **this** process looks up for plane `0x1` and `0xe`
             "0", "2",
         ]
-        const out = details[0]
 
-        for (let arg of forkArgs.slice(1))
-            forkThis(["gen-some", arg, out])
-        some([forkArgs[0], out])
+        for (let forkPlaneStr of forkPlanes.slice(1))
+            forkThis([
+                "gen-some",
+                "-p" + forkPlaneStr,
+                ...(masker as string[]).map(m => "-m" + m),
+                ...Array(Number(verbose)) // Array with length = verbose
+                    .map(() => "-V"),
+                "-O" + outDirPath,
+            ])
+        some({
+            planes: forkPlanes[0],
+            masker, verbose, outDirPath,
+        })
     }
 }
 export default gen
