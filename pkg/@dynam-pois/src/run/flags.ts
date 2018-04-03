@@ -2,12 +2,12 @@ import {ArgumentParser, ArgumentGroup} from "argparse"
 
 // ~~~
 
-export default function parse(
+export function parse(
     argv :string[],
 ) {
     const prog = "pois"
     const addHelp = true
-    const parser = new ArgumentParser({
+    const topParser = new ArgumentParser({
         prog,
         addHelp,
         description:
@@ -15,51 +15,73 @@ export default function parse(
         epilog:
             "ısmo. — ∷escasᴛısᴛ",
     })
-    const genSub = parser.addSubparsers({title: "Blob Generation"})
+    const subparser = topParser.addSubparsers({dest: "subcommandPredicate"})
 
-    for (let curPd of predicates) {
-        let [key, description, argize] = curPd
+    for (let curPred of predicates) {
+        let [
+            key, sym, description,
+            argize, 
+        ] :PredicateSpec = curPred
 
-        const curPdParser = genSub.addParser(key, {
+        const curPredParser = subparser.addParser(key, {
             addHelp,
             description,
         })
 
-        argize(curPdParser)
+        argize(curPredParser)
     }
 
-    const flags = parser.parseArgs(argv)
+    const flags = topParser.parseArgs(argv)
 
     return flags
 }
 
-// ---
-
 const dirPathHelp =
     "Path to the plane directory"
-const maskerListHelp =
-    "`:`-delimeted list containing identifiers of core maskers"
+const maskerHelp =
+    "identifiers of core maskers"
 
-export const predicates :[string, string, (parser :ArgumentParser) => void][] = [
+// + Argumentize parser with default flags:
+function argizeBluepr(
+    parser :ArgumentParser,
+) :void {
+    parser.addArgument(["-V", "--verbose"], {
+        action: "count",
+        defaultValue: 0,
+    })
+    parser.addArgument(["-O", "--outDirPath"], {help: dirPathHelp})
+    parser.addArgument(["-m", "--masker"], {
+        help: maskerHelp,
+        action: "append",
+        defaultValue: [],
+    })
+}
+
+// + Sideeffectful argumentization functions:
+export type Argizer = (parser :ArgumentParser) => void
+export type PredicateSpec = [string, symbol, string, Argizer]
+
+// + Subcommand predicates:
+export const predicates :PredicateSpec[] = [
+    // +
     [
         "gen-some",
+        Symbol("predicate GEN-SOME"),
         "Write **specific** plane files containing blobs to directory",
-        parser => {
-            parser.addArgument(["-O", "--outDirPath"], {help: dirPathHelp})
-            parser.addArgument(["-p", "--planes"], {help:
+        ps => {
+            argizeBluepr(ps)
+            ps.addArgument(["-p", "--planes"], {help:
                 "String containing hexadecimals\
                 representing the unicode planes\
                 to generate blobs from"
             })
-            parser.addArgument(["-m", "--maskerList"], {help: maskerListHelp})
-        }
+        },
     ],
+    // +
     [
         "gen-all",
+        Symbol("predicate GEN-ALL"),
         "Write **all** plane files containing blobs to directory",
-        parser => {
-            parser.addArgument(["-O", "--outDirPath"], {help: dirPathHelp})
-            parser.addArgument(["-m", "--maskerList"], {help: maskerListHelp})
-        }
+        argizeBluepr,
     ],
 ]

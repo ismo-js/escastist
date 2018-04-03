@@ -2,13 +2,15 @@
 
 import {Int} from "@beyond-life/lowbar"
 
-import parse from "./flags"
+import {parse} from "./flags"
+import {interpret} from "./details"
 import gen from "./predicates/gen"
 
 // ~~~
 
 function main() {
     const flags = parse(process.argv.slice(2))
+    const details = interpret(flags)
     
     console.dir(flags)
     
