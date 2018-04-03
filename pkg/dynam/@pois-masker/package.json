@@ -1,5 +1,5 @@
 {
-    "name": "@escastist/pois-masker",
+    "name": "@escastist/dynam-pois-masker",
     "license": "GPL-3.0",
     "repository": "ismo-js/escastist",
     "main": "lib/meta.js",
