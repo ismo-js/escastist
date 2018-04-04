@@ -15,6 +15,7 @@
     "dependencies": {
         "@escastist/lowbar-prim": "^0.1.0",
         "@escastist/lowbar-complex": "^0.1.0",
+        "@escastist/lowbar-xstream": "^0.1.0",
         "argparse": "^1.0.10",
         "fs-extra": "^5.0.0",
         "jsdom": "^11.6.2",
