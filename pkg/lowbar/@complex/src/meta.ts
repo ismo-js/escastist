@@ -1,6 +1,8 @@
-import {Int, INT, isInt} from "./int"
+import {Int, INT, isInt} from "@escastist/lowbar-prim"
 
 // ~~~
+
+export * from "./range"
 
 export type Prop = string | symbol
 

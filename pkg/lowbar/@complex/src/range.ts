@@ -1,4 +1,4 @@
-import {Int} from "./int"
+import {Int} from "@escastist/lowbar-prim"
 
 // ~~~
 
@@ -8,10 +8,10 @@ export function *range<
     origin :Origin,
 ) {
     const rawMap :{
-        [key :string] :<Clothed extends Rangable>(clothed :Clothed) => Int
+        [key :string] :<Clothed extends Rangable>(clothed :any) => Int
     } = {
-        number: (clo) => Math.floor(clo as Int) as Int,
-        string: (clo) => (clo as string).codePointAt(0) as Int,
+        number: (clo :number) => Math.floor(clo as Int) as Int,
+        string: (clo :string) => clo.codePointAt(0) as Int,
     }
     const clothMap :{
         [key :string] :(raw :Int) => Rangable
