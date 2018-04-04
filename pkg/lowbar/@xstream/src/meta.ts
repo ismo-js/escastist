@@ -31,14 +31,14 @@ export function promisify$<Elem>(
     elem$ :$<Elem>,
 ) :Promise<Elem> {
     return new Promise((rsv, rjc) => {
-        const subsrc = elem$.subscribe({
+        const subscr = elem$.subscribe({
             next: elem => {
                 rsv(elem)
                 subscr.unsubscribe()
             },
             error: err => {
                 rjc(err)
-                subsrc.unsubscribe()
+                subscr.unsubscribe()
             },
             complete: () => {
                 rjc()
