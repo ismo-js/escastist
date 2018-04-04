@@ -20,17 +20,15 @@ function main() {
         default:
             console.log("EXIT")
             process.exit(127)
-            return ()=> {} // Type hack; hack!
+            return async ()=> {} // Type hack; hack!
     }}
 
-    //try {
-        getPredicate()(flags)
-    /*} catch (e) {
+    getPredicate()(flags).catch(e => {
         console.trace(e)
         process.exit(
             (e as {exitCode? :Int}).exitCode || 126,
         )
-    }*/
+    })
 }
 
 main()
