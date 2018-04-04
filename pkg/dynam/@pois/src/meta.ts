@@ -134,7 +134,7 @@ export async function extract(
             let val
             let tag = charTag
             do {
-                val = charTag.getAttribute(attr)
+                val = tag.getAttribute(attr)
             } while (null === val
                   && (tag = tag.parentElement!))
 
@@ -142,13 +142,9 @@ export async function extract(
         })
     )
 
-    if (cons) cons.log(`=> Inspecting ${Plane[plane]} plane…`)
-
     const poi$ = attrEntries$.map((entries :AttrEntry[]) :Poi => 
         new Poi(entries)
     )
-
-    if (cons) cons.log(`=> Allocating ${Plane[plane]} plane array…`)
 
     const binAlloc = new Uint8Array(PLANE_LEN)
 
