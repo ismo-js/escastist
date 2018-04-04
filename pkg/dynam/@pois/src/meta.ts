@@ -15,7 +15,7 @@ import fromEv from "xstream/extra/fromEvent"
 
 // @@@
 
-import {Int, isInt} from "@beyond-life/lowbar"
+import {Int, isInt} from "@escastist/lowbar-prim"
 
 import {
     props,
@@ -113,17 +113,16 @@ export namespace generate {
     }
 }
 
-// + Producer iterating over DOM's `NodeList`s:
-export class DomNodeProdc<NodeT extends Node> implements Producer<NodeT> {
+export class IterProducer<Elem> implements Producer<Elem> {
     running = false
 
-    constructor (readonly nodes :NodeList) {}
+    constructor (readonly elems :Iterable<Elem>) {}
 
-    start(lis :Listener<NodeT>) {
+    start(lis :Listener<Elem>) {
         this.running = true
 
-        for (let node of this.nodes) setImmediate(()=> {
-            const next = ()=> lis.next(node as NodeT)
+        for (let node of this.elems) setImmediate(()=> {
+            const next = ()=> lis.next(node)
             
             if (this.running) next()
         })

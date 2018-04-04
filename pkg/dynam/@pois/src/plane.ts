@@ -1,4 +1,4 @@
-import {Int} from "@beyond-life/lowbar"
+import {Int} from "@escastist/lowbar-prim"
 
 // ~~~
 

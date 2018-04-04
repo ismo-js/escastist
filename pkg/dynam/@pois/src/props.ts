@@ -1,4 +1,5 @@
-import {Int, Nullable} from "@beyond-life/lowbar"
+import {Int} from "@escastist/lowbar-prim"
+import {Nullable} from "@escastist/lowbar-complex"
 
 import {Plane} from "./plane"
 
