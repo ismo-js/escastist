@@ -4,5 +4,11 @@
     "license": "GPL-3.0",
     "repository": "ismo-js/escastist",
     "main": "lib/meta.js",
-    "types": "lib/meta.d.ts"
+    "types": "lib/meta.d.ts",
+    "peerDependencies": {
+        "xstream": "*"
+    },
+    "dependencies": {
+        "xstream": "^11.2.0"
+    }
 }
