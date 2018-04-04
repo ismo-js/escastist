@@ -59,6 +59,9 @@ class Poi {
 
         for (let e in entries) {
             const [k, attrValue] = e
+
+            if (!attrValue.trim)
+                console.log(`<***> Trim not found on: ${attrValue} (${typeof attrValue})`)
             const value = attrValue.trim()
 
             if ("cp" === k)

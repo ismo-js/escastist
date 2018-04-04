@@ -130,15 +130,17 @@ export async function extract(
         return onPlane
     })
     const attrEntries$ = onlyPlaneTag$.map((charTag :Element) :AttrEntry[] =>
-        Poi.attrNames.map(attr => {
+        Poi.attrNames.map((attrName :string) :AttrEntry => {
             let val
             let tag = charTag
             do {
-                val = tag.getAttribute(attr)
+                val = tag.getAttribute(attrName)
             } while (null === val
                   && (tag = tag.parentElement!))
 
-            return [attr, val || ""] as AttrEntry
+            if ("string" !== typeof val && cons) cons.log(`<***> Other value found ${val} (${typeof val})`)
+
+            return [attrName, val || ""]
         })
     )
 
