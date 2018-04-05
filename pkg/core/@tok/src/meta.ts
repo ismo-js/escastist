@@ -8,7 +8,7 @@ import {
 import {
     Int,
     isInt,
-} from "@beyond-life/lowbar"
+} from "@escastist/lowbar-prim"
 
 // ~~~
 
