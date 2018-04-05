@@ -44,7 +44,9 @@
     -   **`∷`**:
         Semantic analysis
 
+
 ## :hash: Symbol legend
+
 *   **`∷`**:
     = Action type
 *   **`↑`**:
