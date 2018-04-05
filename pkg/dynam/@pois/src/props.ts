@@ -61,7 +61,8 @@ class Poi {
             const [k, attrValue] = e
 
             if (!attrValue.trim)
-                console.log(`<***> Trim not found on: ${attrValue} (${typeof attrValue})`)
+                console.log(`<***> Trim not found on code point <<${poiI}>>
+                      on attribute: ${attrValue} (${typeof attrValue})`)
             const value = attrValue.trim()
 
             if ("cp" === k)
