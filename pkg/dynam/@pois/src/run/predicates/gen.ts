@@ -9,8 +9,8 @@ import {generate} from "../../meta"
 // ~~~
 
 namespace gen {
-    export function some({planes, outDirPath, verbose} :any) {
-        console.log(`*> some—Verbose: ${verbose}`)
+    export async function some({planes, outDirPath, verbose} :any) {
+        console.log(`*> outDirPath: <<${outDirPath}>>`)
 
         const planeIs = [
             ...(planes as string).trim(),
@@ -25,7 +25,7 @@ namespace gen {
             return planeI as Plane
         })
 
-        generate({
+        await generate({
             planes: planeIs,
 
             cons: !verbose ? void 0 : console,
@@ -40,7 +40,7 @@ namespace gen {
     ]
     const runPath = join(__dirname, "../index.js")
 
-    export function all({masker, outDirPath, verbose} :any) {
+    export async function all({masker, outDirPath, verbose} :any) {
         for (let forkPlaneStr of forkPlanes.slice(1))
             fork(runPath, [
                 "gen-some",
@@ -50,7 +50,7 @@ namespace gen {
                     .fill("-V"),
                 "-O" + outDirPath,
             ])
-        some({
+        await some({
             planes: forkPlanes[0],
             masker, verbose, outDirPath,
         })

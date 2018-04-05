@@ -15,7 +15,8 @@ import fromEv from "xstream/extra/fromEvent"
 
 // @@@
 
-import {Int, isInt} from "@beyond-life/lowbar"
+import {Int, isInt} from "@escastist/lowbar-prim"
+import {promisify$, IterProducer} from "@escastist/lowbar-xstream"
 
 import {
     props,
@@ -61,7 +62,7 @@ export async function generate(
     }
 
     const charTags = dom.window.document.getElementsByTagName("char")
-    const charTag$ = $.create(new DomNodeProdc<Element>(charTags))
+    const charTag$ = $.create(new IterProducer<Element>(charTags))
 
     if (cons) {
         cons.timeEnd("#stm")
@@ -113,27 +114,6 @@ export namespace generate {
     }
 }
 
-// + Producer iterating over DOM's `NodeList`s:
-export class DomNodeProdc<NodeT extends Node> implements Producer<NodeT> {
-    running = false
-
-    constructor (readonly nodes :NodeList) {}
-
-    start(lis :Listener<NodeT>) {
-        this.running = true
-
-        for (let node of this.nodes) setImmediate(()=> {
-            const next = ()=> lis.next(node as NodeT)
-            
-            if (this.running) next()
-        })
-    }
-
-    stop() {
-        this.running = false
-    }
-}
-
 // + Extracts info from a char element stream → binary form:
 export async function extract(
     tag$ :$<Element>,
@@ -150,36 +130,34 @@ export async function extract(
         return onPlane
     })
     const attrEntries$ = onlyPlaneTag$.map((charTag :Element) :AttrEntry[] =>
-        Poi.attrNames.map(attr => {
+        Poi.attrNames.map((attrName :string) :AttrEntry => {
             let val
             let tag = charTag
             do {
-                val = charTag.getAttribute(attr)
+                val = tag.getAttribute(attrName)
             } while (null === val
                   && (tag = tag.parentElement!))
 
-            return [attr, val || ""] as AttrEntry
+            if ("string" !== typeof val && cons) cons.log(`<***> Other value found ${val} (${typeof val})`)
+
+            return [attrName, val || ""]
         })
     )
-
-    if (cons) cons.log(`=> Inspecting ${Plane[plane]} plane…`)
 
     const poi$ = attrEntries$.map((entries :AttrEntry[]) :Poi => 
         new Poi(entries)
     )
 
-    if (cons) cons.log(`=> Allocating ${Plane[plane]} plane array…`)
-
     const binAlloc = new Uint8Array(PLANE_LEN)
 
     if (cons) cons.log(`=> Binarizing ${Plane[plane]} plane better…`)
 
-    const bin = await (poi$
+    const bin = await promisify$(poi$
         .fold(
             (lBin, poi) => {
                 const nBin = new Uint8Array(lBin)
 
-                if (cons) cons.log(`=== ${poi.poiI}`)
+                if (cons) cons.log(`=== Code Point Index: ${poi.poiI}`)
                 
                 nBin.set(
                     [poi.propsI],
