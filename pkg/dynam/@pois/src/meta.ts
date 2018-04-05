@@ -166,11 +166,11 @@ export async function extract(
 
                 console.log(`${(poi.poiI & PLANE_MASK).toString(16)} := ${poi.propsI}`)
 
-                nBin.set(
+                /*nBin.set(
                     [poi.propsI],
                     poi.poiI & PLANE_MASK
-                )
-                return nBin
+                )*/
+                return /*n**/lBin
             },
             aBin
         )

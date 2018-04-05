@@ -18,6 +18,7 @@ export class IterProducer<Elem> implements Producer<Elem> {
             
             if (this.running) next()
         })
+        lis.complete()
     }
 
     stop() {
