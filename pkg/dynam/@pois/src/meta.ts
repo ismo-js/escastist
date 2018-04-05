@@ -92,6 +92,7 @@ export async function generate(
             filePath,
             await bin,
         )
+        if (cons) cons.log("=== DOES THIS ${pl} x GET EXECUTED?")
     })
 
     await Promise.all(wrPromises)
@@ -126,8 +127,12 @@ export async function extract(
         const poiI = parseInt(charTag.getAttribute("cp")!, 16)
         const planeI = poiI >> 0x10
         const onPlane = plane as number === planeI
+        let x = true
 
-        return onPlane
+        if (cons && (poiI & 0xF) !== 0x1) //HACK to perform better when testing!!!
+            x = false
+
+        return isInt(poiI) && onPlane && x
     })
     const attrEntries$ = onlyPlaneTag$.map((charTag :Element) :AttrEntry[] =>
         Poi.attrNames.map((attrName :string) :AttrEntry => {
@@ -138,34 +143,36 @@ export async function extract(
             } while (null === val
                   && (tag = tag.parentElement!))
 
-            if ("string" !== typeof val && cons) cons.log(`<***> Other value found ${val} (${typeof val})`)
+            if ("string" !== typeof val && cons)
+                cons.log(`<***> Other value found ${val} (${typeof val})`)
 
             return [attrName, val || ""]
         })
     )
 
-    const poi$ = attrEntries$.map((entries :AttrEntry[]) :Poi => 
-        new Poi(entries)
-    )
+    const poi$ = attrEntries$
+        .map((entries :AttrEntry[]) :Poi => new Poi(entries))
 
-    const binAlloc = new Uint8Array(PLANE_LEN)
+    const aBin = new Uint8Array(PLANE_LEN)
 
     if (cons) cons.log(`=> Binarizing ${Plane[plane]} plane better…`)
 
-    const bin = await promisify$(poi$
+    const endBin = await promisify$(poi$
         .fold(
             (lBin, poi) => {
                 const nBin = new Uint8Array(lBin)
-
-                if (cons) cons.log(`=== Code Point Index: ${poi.poiI}`)
                 
-                nBin.set(
+                console.count("bin")
+
+                console.log(`${(poi.poiI & PLANE_MASK).toString(16)} := ${poi.propsI}`)
+
+                /*nBin.set(
                     [poi.propsI],
                     poi.poiI & PLANE_MASK
-                )
-                return nBin
+                )*/
+                return /*n**/lBin
             },
-            binAlloc
+            aBin
         )
         .last()
     )
@@ -175,5 +182,5 @@ export async function extract(
         cons.groupEnd()
     }
 
-    return bin
+    return endBin
 }
