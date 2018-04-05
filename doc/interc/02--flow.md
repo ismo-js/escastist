@@ -9,22 +9,36 @@
 +   `@`lex 
     -   **`∷`**:
         Lexical analysis
-    -   **`↑`**:
-        per code point chunk
+    -   **`↑`** per:
+        Code point chunk
+    -   **`+`**:
+        8-bit unicode metadata flags
     -   **`←`**:
         `$<Word<8 | 16>>`
-        utf-8/16 char stream
+        UTF-8/16 char stream
     -   **`→`**:
         `$<Word<32>>`
-        utf-32 code point stream
+        UTF-32 code point stream
 
 +   `@`tok
     -   **`∷`**:
         Token analysis
+    -   **`↑`** per:
+        Source file
+    -   **`→`**:
+        `$<Word<8>>`
+        Ascii raw stream;
+        flat
 
 +   `@`syn
     -   **`∷`**:
         Syntactic analysis
+    -   **`↑`** per:
+        Top level statement
+    -   **`→`**:
+        `$<Word<8>>`
+        Ascii raw stream;
+        nested
 
 +   `@`sem
     -   **`∷`**:
