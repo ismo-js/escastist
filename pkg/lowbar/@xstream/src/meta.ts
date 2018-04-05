@@ -34,10 +34,12 @@ export function promisify$<Elem>(
         const subscr = elem$.subscribe({
             next: elem => {
                 rsv(elem)
+                console.log("##PROM-RESOLVED")
                 subscr.unsubscribe()
             },
             error: err => {
                 rjc(err)
+                console.log("##PROM-REJECTION !!")
                 subscr.unsubscribe()
             },
             complete: () => {
