@@ -157,7 +157,7 @@ export async function extract(
             (lBin, poi) => {
                 const nBin = new Uint8Array(lBin)
 
-                if (cons) cons.log(`=== ${poi.poiI}`)
+                if (cons) cons.log(`=== Code Point Index: ${poi.poiI}`)
                 
                 nBin.set(
                     [poi.propsI],

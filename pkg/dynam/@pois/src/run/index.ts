@@ -23,12 +23,18 @@ function main() {
             return async ()=> {} // Type hack; hack!
     }}
 
-    getPredicate()(flags).catch(e => {
-        console.trace(e)
-        process.exit(
-            (e as {exitCode? :Int}).exitCode || 126,
-        )
-    })
+    getPredicate()(flags).then(
+        () => {
+            console.log("=> Done!")
+        },
+        e => {
+            console.log("=> Error!")
+            throw e
+            /*process.exit(
+                (e as {exitCode? :Int}).exitCode || 126,
+            )*/
+        },
+    )
 }
 
 main()

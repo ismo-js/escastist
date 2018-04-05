@@ -1,4 +1,4 @@
-import {Int} from "@escastist/lowbar-prim"
+import {Int, isInt} from "@escastist/lowbar-prim"
 import {Nullable} from "@escastist/lowbar-complex"
 
 import {Plane} from "./plane"
@@ -57,12 +57,10 @@ class Poi {
         const info = {}
         let poiI = null
 
-        for (let e in entries) {
+        for (let e of entries) {
             const [k, attrValue] = e
 
-            console.count("entries")
-
-            if (!attrValue)
+            if (!attrValue.trim)
                 console.log(`<***> Trim not found on: ${attrValue} (${typeof attrValue})`)
             const value = attrValue.trim()
 
@@ -73,6 +71,8 @@ class Poi {
         }
 
         this.info = info as Poi["info"]
+        if (!isInt(this.poiI))
+            console.log(`<***> Code Point Index Not Found: ${poiI} (${info})`)
         this.poiI = poiI!
     }
 
@@ -109,7 +109,6 @@ class Poi {
             | this.kindI << Shift.kind
             | this.digitI << Shift.digit
 
-        console.log("I: " + i.toString(16))
         return i as Int
     }
 }

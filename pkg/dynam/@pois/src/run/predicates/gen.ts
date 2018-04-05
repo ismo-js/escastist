@@ -10,7 +10,7 @@ import {generate} from "../../meta"
 
 namespace gen {
     export async function some({planes, outDirPath, verbose} :any) {
-        console.log(`*> some—Verbose: ${verbose}`)
+        console.log(`*> outDirPath: <<${outDirPath}>>`)
 
         const planeIs = [
             ...(planes as string).trim(),
