@@ -1,8 +1,20 @@
 <html>
     <head>
+        <meta charset="utf-8" /> 
+
         <script src="intro.js"></script>
-        <template id="intro">
-            <b>Hallo</b>, Mutter namens <var><slot name="name">Uschi</slot></var>.
+
+        <template id="template-intro">
+            <link rel="stylesheet" href="intro.css" />
+
+            <aside id="aside-intro">
+                <svg id="svg-circ" viewBox="0 0 150 150">
+                    <circle cx="75" cy="75" r="50"></circle>
+                </svg>
+                <section id="section-info">
+                    <slot name="info" />
+                </div>
+            </aside>
         </template>
     </head>
 </html>

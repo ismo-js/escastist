@@ -6,35 +6,6 @@ body {
     font-family: "Source Sans Pro";
 }
 
-#intro {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    min-height: 6em;
-    padding: 3em 2em 0;
-
-    background-color: #d01020;
-}
-
-#intro p {
-    text-align: center;
-    font-size: .75em;
-    letter-spacing: .05ex;
-}
-
-#circ {
-    display: block;
-    height: 2em;
-    margin: 0 auto;
-    filter: drop-shadow(0 .125em .15em #111);
-}
-
-#circ circle {
-    fill: transparent;
-    stroke: #8cf;
-    stroke-width: .5em;
-}
-
 #toph {
     position: sticky;
     top: 0;
