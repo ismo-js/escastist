@@ -1,17 +1,25 @@
 <html>
     <head>
         <title>aurora</title>
-        <meta charset="utf-8" />
+
         <link rel="stylesheet" href="index.css" />
-        <link rel="stylesheet" href="./logo.css" />
+        <link rel="stylesheet" href="logo.css" />
+        <link rel="import" href="intro.html" />
+
+        <meta charset="utf-8" /> 
+
+        <script src="../node_modules/@webcomponents/html-imports/html-imports.min.js"></script>
+        <script src="../node_modules/@webcomponents/custom-elements/custom-elements.min.js"></script>
+        <script src="../node_modules/@webcomponents/shadydom/shadydom.min.js"></script>
     </head>
     <body>
+        <ismo-intro><span slot="name">Helga</span></ismo-intro>
         <aside id="intro">
             <svg id="circ" viewBox="0 0 150 150">
                 <circle cx="75" cy="75" r="50"></circle>
             </svg>
             <p>
-                <code>ismo</code> is an open-source developer platform for<br/>isomorphic functional <i>EcmaScript</i
+                <code>ismo</code> is an open-source developer platform for<br/>isomorphic functional <i>EcmaScript</i>
             </p>
         </aside>
         <header id="toph">
