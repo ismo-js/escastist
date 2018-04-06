@@ -6,22 +6,58 @@ body {
     font-family: "Source Sans Pro";
 }
 
+#intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 6em;
+    padding: 3em 2em 0;
+
+    background-color: #d01020;
+}
+
+#intro p {
+    text-align: center;
+    font-size: .75em;
+    letter-spacing: .05ex;
+}
+
+#circ {
+    display: block;
+    height: 2em;
+    margin: 0 auto;
+    filter: drop-shadow(0 .125em .15em #111);
+}
+
+#circ circle {
+    fill: transparent;
+    stroke: #8cf;
+    stroke-width: .5em;
+}
+
 #toph {
+    position: sticky;
+    top: 0;
     display: flex;
     flex-direction: row;
     padding: 1em 2em 0;
 
-    background: linear-gradient(45deg, #b62000,#e60040);
+    background-image: linear-gradient(70deg, #b62000,#e60040);
+    box-shadow: 0 0 .75em #8cf;
 }
 
 #toph>svg {
     order: 1;
     height: fill-available;
-    max-height: 3em;
+    width: 6em;
 }
 #toph>nav {
     flex-grow: 1;
-    border-bottom: .166em solid #eee;
+    padding-left: 6em;
+    border-bottom: .14em solid transparent;
+    border-image-source: linear-gradient(to right, transparent, #ddd 33%, #eee);
+    border-image-slice: 1;
+    border-image-repeat: stretch;
 }
 #toph>nav ul {
     display: flex;
@@ -40,14 +76,14 @@ body {
     display: none;
 }
 #toph>nav li::before {
-    margin: 0 0.75ex; 
+    margin: 0 .75ex; 
     content: "—";
 }
 
 #toph>nav li code {
     font-family: "Source Code Pro";
     font-variant-caps: normal;
-    letter-spacing: -0.175ex;
+    letter-spacing: -.175ex;
 }
 
 
