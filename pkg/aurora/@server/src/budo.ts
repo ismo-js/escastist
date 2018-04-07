@@ -1,16 +1,16 @@
 #!/usr/bin/env node
 
 import * as budo from "budo"
-import tsify from "tsify"
+import * as tsify from "tsify"
 
-const dir = "./var"
-
-budo("./src/index.ts", {
+budo("src/index.ts", {
     portfind: false,
     verbose: true,
-    watchGlob: dir + "/**",
-    dir,
+    live: true,
+    watchGlob: "**",
+    dir: "var",
+    serve: "src/run",
     browserify: {
-        transform: tsify,
+        plugin: tsify,
     },
 })
