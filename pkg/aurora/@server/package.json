@@ -8,6 +8,7 @@
     "dependencies": {
         "@webcomponents/custom-elements": "^1.1.0",
         "@webcomponents/html-imports": "^1.1.1",
-        "@webcomponents/shadydom": "^1.0.14"
+        "@webcomponents/shadydom": "^1.0.14",
+        "@escastist/lowbar-complex": "^0.1.0"
     }
 }
