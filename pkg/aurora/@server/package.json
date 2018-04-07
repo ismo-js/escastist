@@ -1,0 +1,21 @@
+{
+    "name": "@escastist/aurora-server",
+    "version": "0.1.0",
+    "license": "GPL-3.0",
+    "repository": "ismo-js/escastist",
+    "main": "lib/meta.js",
+    "types": "lib/meta.d.ts",
+    "dependencies": {
+        "@escastist/lowbar-complex": "^0.1.0",
+        "@types/koa": "^2.0.45",
+        "@webcomponents/custom-elements": "^1.1.0",
+        "@webcomponents/html-imports": "^1.1.1",
+        "@webcomponents/shadydom": "^1.0.14",
+        "koa": "^2.5.0",
+        "tsify": "^3.0.4"
+    },
+    "devDependencies": {
+        "budo": "^11.2.0",
+        "typescript": "^2.8.1"
+    }
+}

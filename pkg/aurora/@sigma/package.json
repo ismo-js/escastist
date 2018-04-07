@@ -1,0 +1,9 @@
+{
+    "name": "@escastist/aurora-sigma",
+    "version": "0.1.0",
+    "dependencies": {
+        "@escastist/lowbar-prim": "^0.1.0",
+        "@escastist/lowbar-complex": "^0.1.0",
+        "@cycle/run": "^4.1.0"
+    }
+}

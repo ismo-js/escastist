@@ -1,0 +1,41 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+#aside-intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 12em;
+    padding-top: 4em;
+
+    background-color: #a01020;
+}
+
+#section-info {
+    top: .5em;
+    position: sticky;
+
+    background: linear-gradient(to bottom, transparent, #a01020 20%);
+
+    text-align: center;
+    font-size: .75em;
+    letter-spacing: .05ex;
+}
+
+#svg-circ {
+    top: 1em;
+    bottom: 1em;
+    position: sticky;
+
+    display: block;
+    height: 2em;
+    filter: drop-shadow(0 .125em .15em #111);
+}
+
+#svg-circ circle {
+    fill: transparent;
+    stroke: #8cf;
+    stroke-width: .5em;
+}

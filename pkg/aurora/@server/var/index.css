@@ -1,0 +1,63 @@
+body {
+    margin: 0;
+
+    background-color: #222;
+    color: white;
+    font-family: "Source Sans Pro";
+}
+
+#toph {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    padding: 1em 2em 0;
+
+    background-image: linear-gradient(70deg, #b62000,#e60040);
+    box-shadow: 0 0 .75em #8cf;
+}
+
+#toph>svg {
+    order: 1;
+    height: fill-available;
+    width: 6em;
+}
+#toph>nav {
+    flex-grow: 1;
+    padding-left: 6em;
+    border-bottom: .14em solid transparent;
+    border-image-source: linear-gradient(to right, transparent, #ddd 33%, #eee);
+    border-image-slice: 1;
+    border-image-repeat: stretch;
+}
+#toph>nav ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: fill-available;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    list-style-type: none;
+    font-variant-caps: small-caps;
+}
+
+#toph>nav li:first-of-type::before {
+    display: none;
+}
+#toph>nav li::before {
+    margin: 0 .75ex; 
+    content: "—";
+}
+
+#toph>nav li code {
+    font-family: "Source Code Pro";
+    font-variant-caps: normal;
+    letter-spacing: -.175ex;
+}
+
+
+#toph * {
+    margin: 0; padding: 0;
+}
