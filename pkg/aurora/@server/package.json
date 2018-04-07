@@ -7,9 +7,11 @@
     "types": "lib/meta.d.ts",
     "dependencies": {
         "@escastist/lowbar-complex": "^0.1.0",
+        "@types/koa": "^2.0.45",
         "@webcomponents/custom-elements": "^1.1.0",
         "@webcomponents/html-imports": "^1.1.1",
         "@webcomponents/shadydom": "^1.0.14",
+        "koa": "^2.5.0",
         "tsify": "^3.0.4"
     },
     "devDependencies": {
