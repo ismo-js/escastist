@@ -6,9 +6,13 @@
     "main": "lib/meta.js",
     "types": "lib/meta.d.ts",
     "dependencies": {
+        "@escastist/lowbar-complex": "^0.1.0",
         "@webcomponents/custom-elements": "^1.1.0",
         "@webcomponents/html-imports": "^1.1.1",
         "@webcomponents/shadydom": "^1.0.14",
-        "@escastist/lowbar-complex": "^0.1.0"
+        "tsify": "^3.0.4"
+    },
+    "devDependencies": {
+        "budo": "^11.2.0"
     }
 }
