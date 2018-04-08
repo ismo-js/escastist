@@ -1,7 +1,8 @@
 ![– escastist –](https://raw.githubusercontent.com/ismo-js/escastist/master/var/ismo-escastist-icon.512.png)
 
 # <small>(Project:)</small> ∷escasᴛısᴛ
-# *Ast Interpretation & Substitution Tooling*
+### ∷ Ast Interpretation & Substitution Tooling
+
 ## npm :paperclip: [`@escastist`](https://www.npmjs.com/org/escastist)
 ### —*Overview*—
 ---
@@ -47,7 +48,7 @@
 
 
 ## :hash: Status
-Build phase. Development focus currently stays on dynam`@`pois.
+Build phase. Development focus currently on dynam`@`pois.
 
 Also see [the `npm` project `@`escastist](https://www.npmjs.com/org/escastist).
 
