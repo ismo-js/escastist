@@ -49,6 +49,4 @@ export function sigma(out$) {
     } & Resrc = {} as any
 
     const in$ :$<typeof rest> = {} as any
-
-    return adapt(in$)
 }
