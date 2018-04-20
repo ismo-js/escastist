@@ -1,14 +1,14 @@
 {
-    "name": "@escastist/lowbar-xstream",
+    "name": "@escastist/lowbar-sturm",
     "version": "0.1.0",
     "license": "GPL-3.0",
     "repository": "gitlab:ismo-js/escastist",
     "main": "lib/meta.js",
     "types": "lib/meta.d.ts",
-    "peerDependencies": {
-        "xstream": "*"
-    },
     "dependencies": {
-        "xstream": "^11.2.0"
+        "zen-observable": "^0.8.8"
+    },
+    "devDependencies": {
+        "@types/zen-observable": "^0.5.3"
     }
 }
