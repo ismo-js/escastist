@@ -6,3 +6,35 @@
 
 -   Observers also implement the **counter aspect**
     →   `[second :Int48, increment :Int16]`
+
+
+## :hash: Factory
+
+```ts
+//  Synchronous Stream:
+declare $<E extends Object>(
+    iterable :Iterable<E>,
+) :Stream<E>
+
+//  Synchronous Stream:
+declare $<E extends Object>(
+    iterable :AsyncIterable<E>,
+) :Stream<E & Countable>
+
+//  Abstracted Stream:
+declare $<Fun extends Function>(
+    fun :Fun,
+) :Stream<Fun>
+
+//  Utilities:
+declare namespace $ {
+    //  Unicode Point Stream:
+    fromUnicode<Poi>(
+    //… generic function accepts an Integer pseudotype for spefic integer typing
+    //  or another type when using a parser callback
+        codePoiStr :string,
+        parser :(codePoi :number) => Poi =
+            (codePoi :number) => codePoi as Poi,
+    ) :Stream<Poi>
+}
+```
