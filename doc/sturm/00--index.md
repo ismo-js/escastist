@@ -1,3 +1,10 @@
+![– escastist –](https://raw.githubusercontent.com/ismo-js/escastist/master/var/ismo-escastist-icon.256.png)
+
+# <small>(Subproject:)</small> sturm`@`
+## npm :paperclip: [`@escastist/sturm-*`](https://www.npmjs.com/package/@escastist)
+### —*Overview*—
+---
+
 ## :hash: Introduction
 
 ### Goals
@@ -31,6 +38,7 @@ declare $<E extends Object>(
 declare $<Fun extends Function>(
     fun :Fun,
 ) :Stream<Fun>
+```
 
 
 ## :hash: Utilities
