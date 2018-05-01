@@ -1,4 +1,10 @@
-## :hash: Design Goals
+## :hash: Introduction
+
+### Goals
+
+
+
+### Approach
 
 -   Primitive values cannot implement protocols
     →   Stream consists of **objects** (including functions) over time
@@ -26,7 +32,10 @@ declare $<Fun extends Function>(
     fun :Fun,
 ) :Stream<Fun>
 
-//  Utilities:
+
+## :hash: Utilities
+
+```ts
 declare namespace $ {
     //  Unicode Point Stream:
     fromUnicode<Poi>(
