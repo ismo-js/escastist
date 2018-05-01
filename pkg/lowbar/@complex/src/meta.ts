@@ -3,6 +3,7 @@ import {Int, INT, isInt} from "@escastist/lowbar-prim"
 // ~~~
 
 export * from "./range"
+export * from "./cache"
 
 export type Prop = string | symbol
 
