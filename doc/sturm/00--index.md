@@ -29,7 +29,7 @@ declare $<E extends Object>(
     iterable :Iterable<E>,
 ) :Stream<E>
 
-//  Synchronous Stream:
+//  Asynchronous Stream:
 declare $<E extends Object>(
     iterable :AsyncIterable<E>,
 ) :Stream<E & Countable>
