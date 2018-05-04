@@ -4,5 +4,8 @@
     "license": "GPL-3.0",
     "repository": "gitlab:ismo-js/escastist",
     "main": "lib/meta.js",
-    "types": "lib/meta.d.ts"
+    "types": "lib/meta.d.ts",
+    "dependencies": {
+        "@escastist/lowbar-prim": "^0.1.0"
+    }
 }

@@ -1,3 +1,5 @@
+import {Int} from "@escastist/lowbar-prim"
+
 export class Stream {
 
 }
@@ -13,7 +15,9 @@ export namespace Stream {
 
 function $<E extends Object>(
     iterable :Iterable<E>,
-) :Stream<E>
+) :Stream<E> {
+    return new StmPxy()
+}
 
 //  Synchronous Stream:
 function $<E extends Object>(
@@ -26,3 +30,15 @@ function $<Fun extends Function>(
 ) :Stream<Fun>
 
 export default $
+
+// @@@
+
+class StmHandler implements ProxyHandler {
+    constructor() {
+        return new Proxy(new Stream(), this)
+    }
+
+    apply(tgt :Stream, self :Object, args :any[]) {
+        tgt[APPLY]
+    }
+}
